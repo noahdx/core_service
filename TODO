@@ -1,30 +1,9 @@
-1.implement forget forget password
-     - make migration password_resets table
-     - implement password-reset repo:
-            create otp
-            get last and valid otp (make func in entity to check if is it valid or not)
-     - implement auth.service:
-        - forget password: (email):
-                create otp
-                and return response
-        - reset password: (email, otp, new password):
-                search in db find last and valid otp
-                consumed it
-                update user password
-                return response
+1. implement customer address
+ - create address: dto, userId
+    check user exist  if not throw error
+    create new address
+    check if it's a default address then:
+        update old address make default: false
 
-# forgetPassword service:
-    - check user exists by email:
-        if not then throw generic response (for security purpose)
-    - create otp
-    - send otp to user on his email
-    - send generic response (for security purpose)
-
-# resetPassword service:
-    - check if user exists by email:
-        if not then throw error
-    - check if otp valid:
-        if not throw error
-    - update password
-    - mark otp as consumed
-    
+    - get by user id: all | default
+    - update address with optional dto

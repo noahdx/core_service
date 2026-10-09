@@ -6,18 +6,24 @@ import { UserService } from '../../app/user/service/user.service';
 import { UserController } from '../../app/user/controller/user.controller';
 import { AuthService } from '../../app/auth/service/auth.service';
 import { AuthController } from '../../app/auth/controller/auth.controller';
+import { CustomerAddressRepository } from '../../app/customer-address/repository/customer-address.repository';
+import { CustomerAddressService } from '../../app/customer-address/service/customer-address.service';
+import { CustomerAddressController } from '../../app/customer-address/controller/customer-address.controller';
 
 // Repositories
 container.registerSingleton<UserRepository>(tokens.UserRepository, UserRepository);
 container.registerSingleton<PasswordResetRepository>(tokens.PasswordRepository, PasswordResetRepository);
+container.registerSingleton<CustomerAddressRepository>(tokens.CustomerAddressRepository, CustomerAddressRepository);
 
 // Services
 container.registerSingleton<UserService>(tokens.UserService, UserService);
 container.registerSingleton<AuthService>(tokens.AuthService, AuthService);
+container.registerSingleton<CustomerAddressService>(tokens.CustomerAddressService, CustomerAddressService);
 
 // Controllers
 container.registerSingleton<UserController>(tokens.UserController, UserController);
 container.registerSingleton<AuthController>(tokens.AuthController, AuthController);
+container.registerSingleton<CustomerAddressController>(tokens.CustomerAddressController, CustomerAddressController);
 
 // Infrastructure
 
