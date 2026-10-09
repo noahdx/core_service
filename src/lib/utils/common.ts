@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
 import { env } from '../config/env';
 import crypto from 'crypto';
 
@@ -26,11 +26,11 @@ export function generateRefreshToken(payload: IPayload) {
 }
 
 export function verifyAccessToken(token: string) {
-  return jwt.verify(token, env.jwt.accessToken);
+  return jwt.verify(token, env.jwt.accessToken) as JwtPayload;
 }
 
 export function verifyRefreshToken(token: string) {
-  return jwt.verify(token, env.jwt.refreshToken);
+  return jwt.verify(token, env.jwt.refreshToken) as JwtPayload;
 }
 
 export function generateOTP() {

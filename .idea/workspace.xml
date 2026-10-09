@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/utils/cookie.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/utils/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/utils/cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils/cookie.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1791545599299</updated>
       <workItem from="1791545600266" duration="6505000" />
-      <workItem from="1791554196811" duration="20101000" />
+      <workItem from="1791554196811" duration="21025000" />
     </task>
     <servers />
   </component>

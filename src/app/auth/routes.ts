@@ -10,3 +10,4 @@ authRouter.post('/login', authController.login);
 authRouter.post('/register', authController.register);
 authRouter.post('/forget-password', authController.forgetPassword);
 authRouter.post('/reset-password', authController.resetPassword);
+authRouter.post('/refresh', authController.refresh);

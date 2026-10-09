@@ -10,6 +10,7 @@ import {
   hashOTP,
   IPayload,
   verifyPassword,
+  verifyRefreshToken,
 } from '../../../lib/utils/common';
 import { IncorrectCredentialsError, InvalidOTPError } from '../errors';
 import { PasswordResetRepository } from '../repository/password-reset.repository';
@@ -120,5 +121,21 @@ export class AuthService {
     await this.passwordResetRepository.markAsConsumed(user.id);
 
     return { message: 'Password reset successfully' };
+  }
+
+  async refresh(refreshToken: string) {
+    if (!refreshToken) {
+      throw IncorrectCredentialsError;
+    }
+
+    const payload = verifyRefreshToken(refreshToken);
+
+    const accessToken = generateAccessToken({
+      userId: payload.userId,
+      email: payload.email,
+      systemRole: payload.systeRole,
+    });
+
+    return { accessToken };
   }
 }

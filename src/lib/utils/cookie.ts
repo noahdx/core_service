@@ -1,8 +1,3 @@
-/**
- * function take (res, accessToken, refreshToken):
- *  res setHeader access_token | set options
- *   // // set refresh_token
- */
 import { Response } from 'express';
 import { env } from '../config/env';
 import { toMs } from '../../pkg/utils/time';
