@@ -21,6 +21,11 @@ const schema = z.object({
   DB_POOL_MAX: z.string().default('10'),
   DB_MIGRATION_DIRECTORY: z.string().default('src/migrations'),
   DB_MIGRATION_EXTENSION: z.string().default('ts'),
+
+  ACCESS_SECRET: z.string().default('access-secret-default'),
+  REFRESH_SECRET: z.string().default('refresh-secret-default'),
+  ACCESS_EXPIRES_IN: z.string().default('1h'),
+  REFRESH_EXPIRES_IN: z.string().default('1d'),
 });
 
 const parsed = schema.parse(process.env);
@@ -37,5 +42,12 @@ export const env = {
     poolMax: Number(parsed.DB_POOL_MAX),
     migrationDirectory: path.resolve('../../../', parsed.DB_MIGRATION_DIRECTORY),
     migrationExtension: parsed.DB_MIGRATION_EXTENSION,
+  },
+
+  jwt: {
+    accessToken: parsed.ACCESS_SECRET,
+    refreshToken: parsed.REFRESH_SECRET,
+    accessExpiresIn: parsed.ACCESS_EXPIRES_IN,
+    refreshExpiresIn: parsed.REFRESH_EXPIRES_IN,
   },
 };

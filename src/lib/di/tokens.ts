@@ -4,9 +4,11 @@ export const tokens = {
 
   // Services
   UserService: Symbol.for('UserService'),
+  AuthService: Symbol.for('AuthService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
+  AuthController: Symbol.for('AuthController'),
 
   // Infrastructure
 };
