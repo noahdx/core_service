@@ -1,0 +1,11 @@
+1.implement forget forget password
+     - make migration password_resets table
+     - implement password-reset repo:
+            create otp
+            get last and valid otp (make func in entity to check if is it valid or not)
+     - implement auth.service:
+        - forget password: (email):
+                create otp
+                and return response
+        - reset password: (email, otp, new password):
+                search in db
