@@ -1,4 +1,4 @@
-export class AuthEntity {
+export class PasswordResetEntity {
   id: number;
   userId: number;
   otpHash: string;
@@ -6,7 +6,7 @@ export class AuthEntity {
   expiresAt: Date;
   consumedAt: Date | null;
 
-  constructor(data: Partial<AuthEntity>) {
+  constructor(data: Partial<PasswordResetEntity>) {
     this.id = data.id!;
     this.userId = data.id!;
     this.otpHash = data.otpHash!;

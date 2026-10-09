@@ -5,22 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/auth/dto/auth-req.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/auth/errors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/auth/routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WORKFLOW" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/auth/entity/password-reset.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/auth/repository/password-reset.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pkg/utils/time.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/controller/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/controller/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/dto/user-req.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/dto/user-req.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/dto/auth-req.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/dto/auth-req.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/errors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/errors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/repository/user.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/repository/user.repository.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/user/service/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/service/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/di/container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/container.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/di/tokens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/tokens.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/utils/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/utils/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1791545599299</updated>
       <workItem from="1791545600266" duration="6505000" />
-      <workItem from="1791554196811" duration="14217000" />
+      <workItem from="1791554196811" duration="19473000" />
     </task>
     <servers />
   </component>

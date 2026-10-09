@@ -83,4 +83,9 @@ export class UserService {
       systemRole: updated.systemRole,
     };
   }
+
+  async updatePassword(id: number, password: string) {
+    const hashedPassword = await hashPassword(password);
+    await this.userRepository.updatePassword(id, hashedPassword);
+  }
 }

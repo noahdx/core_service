@@ -57,6 +57,10 @@ export class UserRepository {
     return this.toEntity(row);
   }
 
+  async updatePassword(id: number, password: string): Promise<void> {
+    await db('users').where('id', id).update({ password_hash: password });
+  }
+
   private toEntity(row: any): UserEntity {
     return new UserEntity({
       id: row.id,

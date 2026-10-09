@@ -1,6 +1,7 @@
 export const tokens = {
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
+  PasswordRepository: Symbol.for('PasswordRepository'),
 
   // Services
   UserService: Symbol.for('UserService'),

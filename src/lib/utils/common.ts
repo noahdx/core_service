@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { env } from '../config/env';
+import crypto from 'crypto';
 
 export interface IPayload {
   userId: number;
@@ -30,4 +31,12 @@ export function verifyAccessToken(token: string) {
 
 export function verifyRefreshToken(token: string) {
   return jwt.verify(token, env.jwt.refreshToken);
+}
+
+export function generateOTP() {
+  return crypto.randomInt(100000, 999999).toString();
+}
+
+export function hashOTP(otp: string) {
+  return crypto.createHash('sha256').update(otp).digest('hex');
 }
