@@ -4,6 +4,7 @@ import { tokens } from '../../../lib/di/tokens';
 import { NextFunction, Request, Response } from 'express';
 import { validateBody } from '../../../lib/validation/validate';
 import { ForgetPasswordDTO, LoginDTO, RegisterDTO, ResetPasswordDTO } from '../dto/auth-req.dto';
+import { setCookie } from '../../../lib/utils/cookie';
 
 @injectable()
 export class AuthController {
@@ -13,7 +14,8 @@ export class AuthController {
     try {
       const data = await validateBody(RegisterDTO, req.body);
       const result = await this.authService.register(data);
-      res.status(200).json(result);
+      setCookie(res, result.accessToken, result.refreshToken);
+      res.status(200).json({});
     } catch (error) {
       next(error);
     }
@@ -23,6 +25,7 @@ export class AuthController {
     try {
       const data = await validateBody(LoginDTO, req.body);
       const result = await this.authService.login(data);
+      setCookie(res, result.accessToken, result.refreshToken);
       res.status(200).json(result);
     } catch (error) {
       next(error);
