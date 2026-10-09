@@ -11,7 +11,7 @@ export class UserController {
 
   async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = Number(req.params.userId);
+      const id = Number(req.params.id);
       const result = await this.userService.getProfile(id);
       res.status(200).json(result);
     } catch (error) {
@@ -20,7 +20,7 @@ export class UserController {
   }
 
   async updateProfile(req: Request, res: Response, next: NextFunction) {
-    const id = Number(req.params.userId);
+    const id = Number(req.params.id);
     const data = await validateBody(UpdateUserDTO, req.body);
     const result = await this.userService.update(id, data);
     res.status(200).json(result);

@@ -8,7 +8,7 @@ import {
   generateOTP,
   generateRefreshToken,
   hashOTP,
-  IPayload,
+  JwtPayload,
   verifyPassword,
   verifyRefreshToken,
 } from '../../../lib/utils/common';
@@ -33,7 +33,7 @@ export class AuthService {
       password: data.password,
     });
 
-    const payload: IPayload = { userId: user.id, email: user.email, systemRole: user.systemRole };
+    const payload: JwtPayload = { userId: user.id, email: user.email, role: user.systemRole };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
@@ -62,7 +62,7 @@ export class AuthService {
       throw IncorrectCredentialsError;
     }
 
-    const payload: IPayload = { userId: user.id, email: user.email, systemRole: user.systemRole };
+    const payload: JwtPayload = { userId: user.id, email: user.email, role: user.systemRole };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
@@ -133,7 +133,7 @@ export class AuthService {
     const accessToken = generateAccessToken({
       userId: payload.userId,
       email: payload.email,
-      systemRole: payload.systeRole,
+      role: payload.role,
     });
 
     return { accessToken };

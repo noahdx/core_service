@@ -1,9 +1,4 @@
-1. implement customer address
- - create address: dto, userId
-    check user exist  if not throw error
-    create new address
-    check if it's a default address then:
-        update old address make default: false
-
-    - get by user id: all | default
-    - update address with optional dto
+1. implement authenticate middleware:
+    - verify access token {userId, email, systemRole} if token not provided throw error not authenticate
+    - set att user in req
+    - next()
