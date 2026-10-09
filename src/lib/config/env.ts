@@ -19,7 +19,7 @@ const schema = z.object({
   DB_USERNAME: z.string().default('postgres'),
   DB_PASSWORD: z.string(),
   DB_POOL_MAX: z.string().default('10'),
-  DB_MIGRATION_DIRECTORY: z.string().default('/migrations'),
+  DB_MIGRATION_DIRECTORY: z.string().default('src/migrations'),
   DB_MIGRATION_EXTENSION: z.string().default('ts'),
 });
 
@@ -35,7 +35,7 @@ export const env = {
     username: parsed.DB_USERNAME,
     password: parsed.DB_PASSWORD,
     poolMax: Number(parsed.DB_POOL_MAX),
-    migrationDirectory: parsed.DB_MIGRATION_DIRECTORY,
+    migrationDirectory: path.resolve('../../../', parsed.DB_MIGRATION_DIRECTORY),
     migrationExtension: parsed.DB_MIGRATION_EXTENSION,
   },
 };

@@ -5,23 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/health/health.route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/config/env.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/correlation/correlationID.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/error/AppError.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/error/errorHandler.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/knex/knex.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/knex/knexfile.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/logger/logger.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/types/express.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/user/errors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/user/routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/user/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/dto/user-req.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/dto/user-req.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/entity/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/entity/user.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/controller/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/repository/user.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/repository/user.repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/service/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/service/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/di/container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/container.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/knex/knex.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/knex/knex.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/knex/knexfile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/knex/knexfile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +44,10 @@
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3KSKayrXQXBh3pB7wXuBvsJwWW9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -74,7 +74,8 @@
     "npm.format.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "/home/noah/WebstormProjects/core-service/node_modules/prettier",
     "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "actions.on.save",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.completion.inline",
     "ts.external.directory.path": "/home/noah/WebstormProjects/core-service/node_modules/typescript/lib"
   }
 }]]></component>
@@ -109,7 +110,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1791545599299</updated>
-      <workItem from="1791545600266" duration="6241000" />
+      <workItem from="1791545600266" duration="6505000" />
+      <workItem from="1791554196811" duration="10667000" />
     </task>
     <servers />
   </component>
@@ -121,8 +123,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/lib/types/express.d.ts</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/server.ts</url>
+          <line>5</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -7,9 +7,13 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "migrate:make": "node --import tsx ./node_modules/knex/bin/cli.js migrate:make --knexfile ./src/lib/knex/knexfile.ts",
+    "migrate:latest": "node --import tsx ./node_modules/knex/bin/cli.js migrate:latest --knexfile ./src/lib/knex/knexfile.ts",
+    "migrate:rollback": "node --import tsx ./node_modules/knex/bin/cli.js migrate:rollback --knexfile ./src/lib/knex/knexfile.ts"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.4",
     "@types/pg": "^8.23.1",
@@ -18,10 +22,15 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "dotenv": "^18.0.6",
     "express": "^5.2.1",
     "knex": "^3.3.0",
     "pg": "^8.23.1",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.10.0",
     "uuid": "^14.0.2",
     "zod": "^4.6.5"
   }

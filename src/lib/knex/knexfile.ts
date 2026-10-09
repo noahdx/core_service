@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 import { env } from '../config/env';
 
-export const config: Knex.Config = {
+const config: Knex.Config = {
   client: 'pg',
   connection: {
     host: env.db.host,
@@ -19,3 +19,5 @@ export const config: Knex.Config = {
     extension: env.db.migrationExtension,
   },
 };
+
+export default config;
