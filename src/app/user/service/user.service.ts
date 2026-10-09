@@ -12,16 +12,23 @@ export class UserService {
   constructor(@inject(tokens.UserRepository) private readonly userRepository: UserRepository) {}
 
   async getById(id: number) {
-    const user = await this.userRepository.findById(id);
+    return await this.userRepository.findById(id);
+  }
+
+  async getProfile(id: number) {
+    const user = await this.getById(id);
     if (!user) {
       throw UserNotFoundError;
     }
 
     return {
-      id: user.id,
-      email: user.email,
-      phone: user.phone,
-      systemRole: user.systemRole,
+      message: 'User retrieved successfully',
+      data: {
+        id: user.id,
+        email: user.email,
+        phone: user.phone,
+        systemRole: user.systemRole,
+      },
     };
   }
 
@@ -30,7 +37,12 @@ export class UserService {
   }
 
   async existsByEmail(email: string) {
-    return await this.userRepository.existsByEmail(email);
+    const user = await this.userRepository.existsByEmail(email);
+    if (!user) {
+      throw UserNotFoundError;
+    }
+
+    return user;
   }
 
   async create(data: ICreateUserData, trx?: Knex) {

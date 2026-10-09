@@ -12,12 +12,13 @@ export class UserController {
   async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.userId);
-      const result = await this.userService.getById(id);
+      const result = await this.userService.getProfile(id);
       res.status(200).json(result);
     } catch (error) {
       next(error);
     }
   }
+
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     const id = Number(req.params.userId);
     const data = await validateBody(UpdateUserDTO, req.body);
