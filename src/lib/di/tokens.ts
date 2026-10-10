@@ -5,6 +5,9 @@ export const tokens = {
   CustomerAddressRepository: Symbol.for('CustomerAddressRepository'),
   RestaurantRepository: Symbol.for('RestaurantRepository'),
   BranchRepository: Symbol.for('BranchRepository'),
+  ProductRepository: Symbol.for('ProductRepository'),
+  ProductCategoryRepository: Symbol.for('ProductCategoryRepository'),
+  PBDRepository: Symbol.for('PBDRepository'),
 
   // Services
   UserService: Symbol.for('UserService'),
@@ -12,6 +15,7 @@ export const tokens = {
   CustomerAddressService: Symbol.for('CustomerAddressService'),
   RestaurantService: Symbol.for('RestaurantService'),
   BranchService: Symbol.for('BranchService'),
+  ProductService: Symbol.for('ProductService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
@@ -19,6 +23,7 @@ export const tokens = {
   CustomerAddressController: Symbol.for('CustomerAddressController'),
   RestaurantController: Symbol.for('RestaurantController'),
   BranchController: Symbol.for('BranchController'),
+  ProductController: Symbol.for('ProductController'),
 
   // Infrastructure
 };

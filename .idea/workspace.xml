@@ -5,23 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/branch/controller/branch.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/dto/branch-req.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/entity/branch.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/errors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/repository/branch.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/service/branch.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/branch/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/controller/product.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/dto/product-req.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/entity/category.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/entity/product-branch-details.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/entity/product.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/errors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/repository/category.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/repository/product-branch-details.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/repository/product.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/product/service/product.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth/entity/password-reset.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/entity/password-reset.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth/repository/password-reset.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/repository/password-reset.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/restaurant/repository/restaurant.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/restaurant/repository/restaurant.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/restaurant/service/restaurant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/restaurant/service/restaurant.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/di/container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/container.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/di/tokens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/tokens.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/20261010104239_create_restaurant_branches_table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261010104239_create_restaurant_branches_table.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migrations/20261010134622_create_products_tables.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261010134622_create_products_tables.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +29,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="80" />
+    <option name="cachedIndexableFilesCount" value="81" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,61 +50,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7720699035042606" />
-      <entry key="MS500" value="3.7589610601810732" />
-      <entry key="S2" value="4.638101325085775" />
-      <entry key="S5" value="4.8509918952408935" />
-      <entry key="S10" value="4.982532285930903" />
-      <entry key="S30" value="6.3917485951986555" />
-      <entry key="S60" value="8.136841677683496" />
-      <entry key="M2" value="9.689037533410199" />
-      <entry key="M5" value="10.96406324997002" />
-      <entry key="M10" value="11.461408675482225" />
-      <entry key="M15" value="11.636192505744093" />
-      <entry key="M30" value="11.815680638952074" />
-      <entry key="H1" value="11.907228350486136" />
-      <entry key="H2" value="11.953460163024424" />
-      <entry key="H4" value="11.976691450217377" />
-      <entry key="D1" value="11.996109865325947" />
-      <entry key="W1" value="11.999444134666136" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="2.133594688120757E-149" />
+      <entry key="S2" value="6.796385119833108E-38" />
+      <entry key="S5" value="1.3580357166681062E-15" />
+      <entry key="S10" value="3.685153615072474E-8" />
+      <entry key="S30" value="0.0033284180967370794" />
+      <entry key="S60" value="0.06338298120528599" />
+      <entry key="M2" value="0.8572606489974893" />
+      <entry key="M5" value="12.328299502954163" />
+      <entry key="M10" value="38.70743354694199" />
+      <entry key="M15" value="64.73813385962782" />
+      <entry key="M30" value="139.35477151207002" />
+      <entry key="H1" value="260.82269206364134" />
+      <entry key="H2" value="398.2253828444639" />
+      <entry key="H4" value="508.68265493814545" />
+      <entry key="D1" value="634.9286996895065" />
+      <entry key="W1" value="660.5924009291057" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="3.2656647615526796E-277" />
-      <entry key="S2" value="1.1196737040181308E-69" />
-      <entry key="S5" value="4.7417023195939895E-28" />
-      <entry key="S10" value="3.72570898855009E-14" />
-      <entry key="S30" value="6.928381311054726E-5" />
-      <entry key="S60" value="0.01441215255952222" />
-      <entry key="M2" value="0.20791613822042773" />
-      <entry key="M5" value="1.0313811684885406" />
-      <entry key="M10" value="1.7590118063195856" />
-      <entry key="M15" value="2.101612264348694" />
-      <entry key="M30" value="2.510942461800589" />
-      <entry key="H1" value="2.7445994184469233" />
-      <entry key="H2" value="2.8694595079838483" />
-      <entry key="H4" value="2.9340038211805624" />
-      <entry key="D1" value="2.988898435868351" />
-      <entry key="W1" value="2.998411541231351" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.000000051322529" />
+      <entry key="S60" value="1.0002538621993258" />
+      <entry key="M2" value="1.0313911303461338" />
+      <entry key="M5" value="2.427237519640485" />
+      <entry key="M10" value="9.090770107250712" />
+      <entry key="M15" value="18.826468391204912" />
+      <entry key="M30" value="52.113771985890104" />
+      <entry key="H1" value="101.40019846157914" />
+      <entry key="H2" value="148.37232065155686" />
+      <entry key="H4" value="181.857248152398" />
+      <entry key="D1" value="217.01062446179105" />
+      <entry key="W1" value="223.83712916283542" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6110816464443407" />
-      <entry key="MS500" value="3.7000573585924665" />
-      <entry key="S2" value="4.6205474293104025" />
-      <entry key="S5" value="4.843696798972198" />
-      <entry key="S10" value="4.978782495552888" />
-      <entry key="S30" value="6.390124493143967" />
-      <entry key="S60" value="8.149923336766337" />
-      <entry key="M2" value="9.894750333156638" />
-      <entry key="M5" value="11.9921000034097" />
-      <entry key="M10" value="13.217667069011517" />
-      <entry key="M15" value="13.735630051696756" />
-      <entry key="M30" value="14.325333205122663" />
-      <entry key="H1" value="14.651125019715169" />
-      <entry key="H2" value="14.82255285301362" />
-      <entry key="H4" value="14.910507870831863" />
-      <entry key="D1" value="14.984976501966761" />
-      <entry key="W1" value="14.997851119143322" />
+      <entry key="MS100" value="0.0028201742100048754" />
+      <entry key="MS500" value="0.3090688152302379" />
+      <entry key="S2" value="0.7456135585935609" />
+      <entry key="S5" value="0.8892124173247622" />
+      <entry key="S10" value="0.9429806390292546" />
+      <entry key="S30" value="0.9839289279996708" />
+      <entry key="S60" value="1.0537210097694216" />
+      <entry key="M2" value="1.8829739161559835" />
+      <entry key="M5" value="14.744843689704112" />
+      <entry key="M10" value="47.77203049647178" />
+      <entry key="M15" value="83.52608190043635" />
+      <entry key="M30" value="191.41266205204025" />
+      <entry key="H1" value="362.16763309694466" />
+      <entry key="H2" value="546.5569972456815" />
+      <entry key="H4" value="690.5148777127333" />
+      <entry key="D1" value="851.9343348447703" />
+      <entry key="W1" value="884.4287946213079" />
     </decayedShown>
   </component>
   <component name="OptimizeOnSaveOptions">
@@ -120,33 +119,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "code.cleanup.on.save": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
-    "javascript.preferred.runtime.type.id": "node",
-    "last_opened_file_path": "/home/noah/projects/quickbite/core-service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.format.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "/home/noah/WebstormProjects/core-service/node_modules/prettier",
-    "rearrange.code.on.save": "true",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "ml.llm.AcpAgentsConfigurable",
-    "ts.external.directory.path": "/home/noah/WebstormProjects/core-service/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;KEY_CHAT_IN_TOOLWINDOW&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/noah/projects/quickbite/core-service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/prettier&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -180,7 +180,8 @@
       <updated>1791545599299</updated>
       <workItem from="1791545600266" duration="6505000" />
       <workItem from="1791554196811" duration="38059000" />
-      <workItem from="1791625895199" duration="13745000" />
+      <workItem from="1791625895199" duration="22824000" />
+      <workItem from="1791650094375" duration="2949000" />
     </task>
     <servers />
   </component>
