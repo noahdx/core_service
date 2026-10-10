@@ -7,8 +7,8 @@ import { authenticate } from '../../lib/auth/authenticate';
 const addressController = container.resolve<CustomerAddressController>(tokens.CustomerAddressController);
 
 export const addressRouter = Router();
-addressRouter.get('/:userId', authenticate, addressController.getAll);
-addressRouter.get('/:id', authenticate, addressController.getById);
-addressRouter.put('/:id', authenticate, addressController.update);
 addressRouter.post('/', authenticate, addressController.create);
-addressRouter.delete('/:id', authenticate, addressController.delete);
+addressRouter.get('/', authenticate, addressController.getAll);
+addressRouter.get('/:addressId', authenticate, addressController.getById);
+addressRouter.put('/:addressId', authenticate, addressController.update);
+addressRouter.delete('/:addressId', authenticate, addressController.delete);

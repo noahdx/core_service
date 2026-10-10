@@ -12,7 +12,7 @@ import { toMs } from '../../../pkg/utils/time';
 export class AuthController {
   constructor(@inject(tokens.AuthService) private readonly authService: AuthService) {}
 
-  async register(req: Request, res: Response, next: NextFunction) {
+  register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await validateBody(RegisterDTO, req.body);
       const result = await this.authService.register(data);
@@ -21,9 +21,9 @@ export class AuthController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async login(req: Request, res: Response, next: NextFunction) {
+  login = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await validateBody(LoginDTO, req.body);
       const result = await this.authService.login(data);
@@ -32,21 +32,21 @@ export class AuthController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async forgetPassword(req: Request, res: Response, next: NextFunction) {
+  forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
     const data = await validateBody(ForgetPasswordDTO, req.body);
     const result = await this.authService.forgetPassword(data);
     res.status(200).json(result);
-  }
+  };
 
-  async resetPassword(req: Request, res: Response, next: NextFunction) {
+  resetPassword = async (req: Request, res: Response, next: NextFunction) => {
     const data = await validateBody(ResetPasswordDTO, req.body);
     const result = await this.authService.resetPassword(data);
     res.status(200).json(result);
-  }
+  };
 
-  async refresh(req: Request, res: Response, next: NextFunction) {
+  refresh = async (req: Request, res: Response, next: NextFunction) => {
     const result = await this.authService.refresh(req.cookies.refresh_token);
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
@@ -55,5 +55,5 @@ export class AuthController {
     });
 
     res.status(200).json({ message: 'Success' });
-  }
+  };
 }

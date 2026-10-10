@@ -10,7 +10,7 @@ import { tokens } from '../../../lib/di/tokens';
 export class RestaurantController {
   constructor(@inject(tokens.RestaurantService) private readonly restaurantService: RestaurantService) {}
 
-  async getById(req: Request, res: Response, next: NextFunction) {
+  getById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
       const result = await this.restaurantService.getById(id);
@@ -18,9 +18,9 @@ export class RestaurantController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const role = req.user?.role as SystemRole;
       const data = await validateBody(RegisterRestaurantDTO, req.body);
@@ -29,9 +29,9 @@ export class RestaurantController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  update = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
       const userId = Number(req.user?.userId);
@@ -41,9 +41,9 @@ export class RestaurantController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async updateStatus(req: Request, res: Response, next: NextFunction) {
+  updateStatus = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
       const role = req.user?.role as SystemRole;
@@ -53,5 +53,5 @@ export class RestaurantController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 }

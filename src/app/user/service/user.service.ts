@@ -15,6 +15,14 @@ export class UserService {
     return await this.userRepository.findById(id);
   }
 
+  async getByEmail(email: string) {
+    return await this.userRepository.findByEmail(email);
+  }
+
+  async existsByEmail(email: string) {
+    return await this.userRepository.existsByEmail(email);
+  }
+
   async getProfile(id: number) {
     const user = await this.getById(id);
     if (!user) {
@@ -30,19 +38,6 @@ export class UserService {
         systemRole: user.systemRole,
       },
     };
-  }
-
-  async getByEmail(email: string) {
-    return await this.userRepository.findByEmail(email);
-  }
-
-  async existsByEmail(email: string) {
-    const user = await this.userRepository.existsByEmail(email);
-    if (!user) {
-      throw UserNotFoundError;
-    }
-
-    return user;
   }
 
   async create(data: ICreateUserData, trx?: Knex) {

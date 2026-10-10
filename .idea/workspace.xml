@@ -5,27 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/controller/restaurant.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/dto/restaurant-req-.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/entity/restaurant.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/errors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/repository/restaurant.repository.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/service/restaurant.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/restaurant/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/controller/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth/dto/auth-req.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/dto/auth-req.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth/errors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/errors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/service/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/customer-address/service/customer-address.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/customer-address/service/customer-address.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/auth/errors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/auth/errors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/di/container.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/container.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/di/tokens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/di/tokens.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/types/express.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/types/express.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/auth/entity/password-reset.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/auth/entity/password-reset.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/customer-address/controller/customer-address.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/customer-address/controller/customer-address.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/customer-address/repository/customer-address.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/customer-address/repository/customer-address.repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/customer-address/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/customer-address/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/health/health.route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/health/health.route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/restaurant/controller/restaurant.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/restaurant/controller/restaurant.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/restaurant/repository/restaurant.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/restaurant/repository/restaurant.repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/restaurant/service/restaurant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/restaurant/service/restaurant.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/controller/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/controller/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/service/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/service/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/correlation/correlationID.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/correlation/correlationID.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migrations/20261009142331_create_users_table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261009142331_create_users_table.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migrations/20261009183447_create_password_resets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261009183447_create_password_resets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migrations/20261009202235_create_customer_addresses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261009202235_create_customer_addresses.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/migrations/20261009230442_create_restaurants_table.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/migrations/20261009230442_create_restaurants_table.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,32 +54,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "code.cleanup.on.save": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
-    "javascript.preferred.runtime.type.id": "node",
-    "last_opened_file_path": "/home/noah/projects/quickbite/core-service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.format.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "/home/noah/WebstormProjects/core-service/node_modules/prettier",
-    "rearrange.code.on.save": "true",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "editor.preferences.completion.inline",
-    "ts.external.directory.path": "/home/noah/WebstormProjects/core-service/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/noah/projects/quickbite/core-service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/prettier&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.inline&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -115,7 +112,8 @@
       <option name="presentableId" value="Default" />
       <updated>1791545599299</updated>
       <workItem from="1791545600266" duration="6505000" />
-      <workItem from="1791554196811" duration="37398000" />
+      <workItem from="1791554196811" duration="38059000" />
+      <workItem from="1791625895199" duration="3006000" />
     </task>
     <servers />
   </component>
@@ -128,7 +126,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/server.ts</url>
           <line>5</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

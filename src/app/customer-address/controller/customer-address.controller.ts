@@ -9,55 +9,55 @@ import { CreateAddressDTO, UpdateAddressDTO } from '../dto/customer-address-req.
 export class CustomerAddressController {
   constructor(@inject(tokens.CustomerAddressService) private readonly customerAddressService: CustomerAddressService) {}
 
-  async getById(req: Request, res: Response, next: NextFunction) {
+  getById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = Number(req.params.id);
+      const id = Number(req.params.addressId);
       const result = await this.customerAddressService.getById(id);
       res.status(200).send(result);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
     } catch (error) {
       next(error);
     }
-    const userId = Number(req.params.userId);
+    const userId = Number(req.user?.userId);
     const result = await this.customerAddressService.getAll(userId);
     res.status(200).send(result);
-  }
+  };
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  create = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = Number(req.params.userId);
+      const userId = Number(req.user?.userId);
       const data = await validateBody(CreateAddressDTO, req.body);
       const result = await this.customerAddressService.create(userId, data);
       res.status(200).json(result);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  update = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = Number(req.params.id);
+      const id = Number(req.params.addressId);
       const data = await validateBody(UpdateAddressDTO, req.body);
       const result = await this.customerAddressService.update(id, data);
       res.status(200).json(result);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async delete(req: Request, res: Response, next: NextFunction) {
+  delete = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = Number(req.params.id);
+      const id = Number(req.params.addressId);
       const result = await this.customerAddressService.delete(id);
       res.status(200).json(result);
     } catch (error) {
       next(error);
     }
-  }
+  };
 }

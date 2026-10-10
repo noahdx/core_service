@@ -17,7 +17,7 @@ export class RestaurantRepository {
     'updated_at',
   ];
 
-  async finById(id: number) {
+  async findById(id: number) {
     const row = await db('restaurants').where('id', id).select(this.COLUMNS).first();
     return this.toEntity(row);
   }
@@ -54,7 +54,7 @@ export class RestaurantRepository {
       .where('id', id)
       .update({
         status: staus,
-        created_at: new Date(),
+        updated_at: new Date(),
       })
       .returning(this.COLUMNS);
     return this.toEntity(row);

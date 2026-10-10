@@ -6,10 +6,10 @@ export async function up(knex: Knex): Promise<void> {
         id BIGSERIAL PRIMARY KEY,
         owner_id BIGINT NOT NULL REFERENCES users(id),
         name TEXT UNIQUE NOT NULL,
-        status TEXT NOT NULL CHECK ( status IN ('active', 'penging', 'disabled', 'suspended') ),
+        status TEXT NOT NULL CHECK ( status IN ('active', 'pending', 'disabled', 'suspended') ),
         primary_country TEXT NOT NULL,
         logo_url TEXT NOT NULL,
-        ceated_at TIMESTAMP NOT NULL,
+        created_at TIMESTAMP NOT NULL,
         updated_at TIMESTAMP NOT NULL
       );
 

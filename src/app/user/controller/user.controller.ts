@@ -9,7 +9,7 @@ import { UpdateUserDTO } from '../dto/user-req.dto';
 export class UserController {
   constructor(@inject(tokens.UserService) private readonly userService: UserService) {}
 
-  async getProfile(req: Request, res: Response, next: NextFunction) {
+  getProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = Number(req.params.id);
       const result = await this.userService.getProfile(id);
@@ -17,12 +17,12 @@ export class UserController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async updateProfile(req: Request, res: Response, next: NextFunction) {
+  updateProfile = async (req: Request, res: Response, next: NextFunction) => {
     const id = Number(req.params.id);
     const data = await validateBody(UpdateUserDTO, req.body);
     const result = await this.userService.update(id, data);
     res.status(200).json(result);
-  }
+  };
 }

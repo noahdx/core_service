@@ -19,7 +19,7 @@ export async function up(knex: Knex): Promise<void> {
         updated_at TIMESTAMP NOT NULL
       );
 
-      CREATE INDEX idx_customer_addresses_user_id ON (users);
+      CREATE INDEX idx_customer_addresses_user_id ON customer_addresses(user_id);
       
   `);
 }

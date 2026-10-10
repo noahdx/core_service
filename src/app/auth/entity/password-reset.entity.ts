@@ -8,7 +8,7 @@ export class PasswordResetEntity {
 
   constructor(data: Partial<PasswordResetEntity>) {
     this.id = data.id!;
-    this.userId = data.id!;
+    this.userId = data.userId!;
     this.otpHash = data.otpHash!;
     this.createdAt = data.createdAt!;
     this.expiresAt = data.expiresAt!;
@@ -16,6 +16,6 @@ export class PasswordResetEntity {
   }
 
   isExpired() {
-    return this.expiresAt > new Date();
+    return this.expiresAt >= new Date();
   }
 }

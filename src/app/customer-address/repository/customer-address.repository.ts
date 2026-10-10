@@ -65,12 +65,12 @@ export class CustomerAddressRepository {
     mapping.updated_at = data.updatedAt;
     if (data.label !== undefined) mapping.label = data.label;
     if (data.lng !== undefined) mapping.lng = data.lng;
-    if (data.lat === undefined) mapping.lat = data.lat;
+    if (data.lat !== undefined) mapping.lat = data.lat;
     if (data.isDefault !== undefined) mapping.is_default = data.isDefault;
     if (data.country !== undefined) mapping.country = data.country;
     if (data.city !== undefined) mapping.city = data.city;
-    if (data.street === undefined) mapping.street = data.street;
-    if (data.building === undefined) mapping.building = data.building;
+    if (data.street !== undefined) mapping.street = data.street;
+    if (data.building !== undefined) mapping.building = data.building;
     if (data.apartmentNumber !== undefined) mapping.apartment_number = data.apartmentNumber;
 
     const [row] = await db('customer_addresses').where('id', id).update(mapping).returning(this.COLUMNS);

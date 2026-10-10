@@ -24,7 +24,7 @@ export class RestaurantService {
   ) {}
 
   async getById(id: number) {
-    const restaurant = await this.restaurantRepository.finById(id);
+    const restaurant = await this.restaurantRepository.findById(id);
     if (!restaurant) {
       throw RestaurantNotFoundError;
     }
@@ -104,7 +104,7 @@ export class RestaurantService {
   }
 
   async update(userId: number, id: number, data: UpdatedRestaurantDTO) {
-    const restaurant = await this.restaurantRepository.finById(id);
+    const restaurant = await this.restaurantRepository.findById(id);
     if (!restaurant) {
       throw RestaurantNotFoundError;
     }
@@ -126,7 +126,7 @@ export class RestaurantService {
       throw UnAuthorizedError;
     }
 
-    const restaurant = await this.restaurantRepository.finById(id);
+    const restaurant = await this.restaurantRepository.findById(id);
     if (!restaurant) {
       throw RestaurantNotFoundError;
     }
