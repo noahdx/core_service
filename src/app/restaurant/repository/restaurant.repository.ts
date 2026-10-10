@@ -19,7 +19,7 @@ export class RestaurantRepository {
 
   async findById(id: number) {
     const row = await db('restaurants').where('id', id).select(this.COLUMNS).first();
-    return this.toEntity(row);
+    return row ? this.toEntity(row) : undefined;
   }
 
   async create(data: Partial<RestaurantEntity>, trx: Knex = db): Promise<RestaurantEntity> {
@@ -62,14 +62,14 @@ export class RestaurantRepository {
 
   private toEntity(row: any): RestaurantEntity {
     return new RestaurantEntity({
-      id: row.id,
-      ownerId: row.owner_id,
+      id: Number(row.id),
+      ownerId: Number(row.owner_id),
       name: row.name,
       status: row.status,
       primaryCountry: row.primary_country,
       logoUrl: row.logo_url,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
     });
   }
 }

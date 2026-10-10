@@ -16,6 +16,6 @@ export class PasswordResetEntity {
   }
 
   isExpired() {
-    return this.expiresAt >= new Date();
+    return this.expiresAt <= new Date();
   }
 }

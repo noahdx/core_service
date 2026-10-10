@@ -24,6 +24,7 @@ export class PasswordResetRepository {
     const row = await db('password_resets')
       .where('user_id', userId)
       .whereNull('consumed_at')
+      .orderBy('created_at', 'desc')
       .select(this.COLUMNS)
       .first();
 

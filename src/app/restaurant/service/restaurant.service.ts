@@ -31,7 +31,7 @@ export class RestaurantService {
 
     return {
       message: 'Restaurant retrieved successfully',
-      restaurant: restaurant,
+      data: restaurant,
     };
   }
 
@@ -117,7 +117,7 @@ export class RestaurantService {
 
     return {
       message: 'Restaurant updated successfully',
-      restaurant: updated,
+      data: updated,
     };
   }
 
@@ -135,7 +135,7 @@ export class RestaurantService {
 
     return {
       message: 'Restaurant updated successfully',
-      restaurant: updated,
+      data: updated,
     };
   }
 }
