@@ -47,7 +47,7 @@ export class AuthController {
   }
 
   async refresh(req: Request, res: Response, next: NextFunction) {
-    const result = await this.authService.refresh(req.cookies('refresh_token'));
+    const result = await this.authService.refresh(req.cookies.refresh_token);
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
       secure: env.isProduction,

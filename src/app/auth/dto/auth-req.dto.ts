@@ -1,13 +1,18 @@
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   IsStrongPassword,
   Matches,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+import { SystemRole } from '../../user/types';
 
 export class RegisterDTO {
   @IsNotEmpty()
@@ -26,6 +31,9 @@ export class RegisterDTO {
   @MaxLength(50)
   name!: string;
 
+  @IsEnum(SystemRole)
+  role!: SystemRole;
+
   @IsStrongPassword(
     {
       minLength: 8,
@@ -40,7 +48,13 @@ export class RegisterDTO {
     },
   )
   password!: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => RegisterRestaurantDTO)
+  restaurant?: RegisterRestaurantDTO;
 }
+
 export class LoginDTO {
   @IsNotEmpty()
   @IsString()
@@ -97,4 +111,18 @@ export class ResetPasswordDTO {
     },
   )
   newPassword!: string;
+}
+
+export class RegisterRestaurantDTO {
+  @IsString()
+  @MinLength(1)
+  name!: string;
+
+  @IsOptional()
+  @IsString()
+  logoURL?: string;
+
+  @IsString()
+  @MinLength(1)
+  primaryCountry!: string;
 }

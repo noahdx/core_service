@@ -12,42 +12,75 @@ import {
   verifyPassword,
   verifyRefreshToken,
 } from '../../../lib/utils/common';
-import { IncorrectCredentialsError, InvalidOTPError } from '../errors';
+import { IncorrectCredentialsError, InvalidOTPError, RestaurantDataRequiredError } from '../errors';
 import { PasswordResetRepository } from '../repository/password-reset.repository';
 import { toMs } from '../../../pkg/utils/time';
 import { logger } from '../../../lib/logger/logger';
+import { RestaurantService } from '../../restaurant/service/restaurant.service';
+import { db } from '../../../lib/knex/knex';
 
 @injectable()
 export class AuthService {
   constructor(
     @inject(tokens.UserService) private readonly userService: UserService,
     @inject(tokens.PasswordRepository) private readonly passwordResetRepository: PasswordResetRepository,
+    @inject(tokens.RestaurantService) private readonly restaurantService: RestaurantService,
   ) {}
 
   async register(data: RegisterDTO) {
-    const user = await this.userService.create({
-      email: data.email,
-      phone: data.phone,
-      name: data.name,
-      systemRole: SystemRole.CUSTOMER,
-      password: data.password,
-    });
+    let user;
+    let restaurant;
+    let restaurantMemberInfo: { restaurantId?: number; restaurantRole?: string; branchIds?: number[] } = {};
+    const trx = await db.transaction();
 
-    const payload: JwtPayload = { userId: user.id, email: user.email, role: user.systemRole };
+    try {
+      user = await this.userService.create(
+        {
+          email: data.email,
+          phone: data.phone,
+          name: data.name,
+          systemRole: SystemRole.CUSTOMER,
+          password: data.password,
+        },
+        trx,
+      );
+
+      // check if the type of user is restaurant, then call restaurant service to create a new restaurant
+      if (data.role === SystemRole.RESTAURANT_USER) {
+        if (data.restaurant == undefined) {
+          throw RestaurantDataRequiredError;
+        }
+
+        restaurant = await this.restaurantService.create(user.id, data.restaurant, trx);
+        restaurantMemberInfo = {
+          restaurantId: restaurant.id,
+          restaurantRole: 'owner',
+          branchIds: [],
+        };
+      }
+
+      await trx.commit();
+    } catch (error) {
+      await trx.rollback();
+      throw error;
+    }
+
+    const payload = { userId: user.id, email: user.email, role: user.systemRole, ...restaurantMemberInfo };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
     return {
       message: 'User registered successfully',
+      accessToken,
+      refreshToken,
       user: {
         id: user.id,
         email: user.email,
         phone: user.phone,
-        name: user.name,
-        systemRole: user.systemRole,
+        role: user.systemRole,
+        createdAt: user.createdAt,
       },
-      accessToken,
-      refreshToken,
+      restaurant,
     };
   }
 

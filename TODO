@@ -1,4 +1,15 @@
-1. implement authenticate middleware:
-    - verify access token {userId, email, systemRole} if token not provided throw error not authenticate
-    - set att user in req
-    - next()
+1. implement restaurant:
+    - create with owner:
+        check role is admin
+        check if user exists throw error unAuthorized
+        make trx
+        create user
+        create restaurant
+        return response
+
+    - create (user register with restaurant data) authService:
+
+        check if systemRole = restaurant_user then make:
+            create restaurant
+
+

@@ -14,6 +14,10 @@ export class CustomerAddressService {
 
   async getById(id: number) {
     const address = await this.customerAddressRepository.findById(id);
+
+    if (!address) {
+      throw AddressNotFoundError;
+    }
     return {
       message: 'Address retrieved successfully',
       data: address,

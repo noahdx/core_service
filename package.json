@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "migrate:make": "node --import tsx ./node_modules/knex/bin/cli.js migrate:make --knexfile ./src/lib/knex/knexfile.ts",
