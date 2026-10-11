@@ -8,7 +8,6 @@ import {
   generateOTP,
   generateRefreshToken,
   hashOTP,
-  JwtPayload,
   verifyPassword,
   verifyRefreshToken,
 } from '../../../lib/utils/common';
@@ -18,6 +17,7 @@ import { toMs } from '../../../pkg/utils/time';
 import { logger } from '../../../lib/logger/logger';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { db } from '../../../lib/knex/knex';
+import { MemberInternalService } from '../../rbac/service/member-internal.service';
 
 @injectable()
 export class AuthService {
@@ -25,6 +25,7 @@ export class AuthService {
     @inject(tokens.UserService) private readonly userService: UserService,
     @inject(tokens.PasswordRepository) private readonly passwordResetRepository: PasswordResetRepository,
     @inject(tokens.RestaurantService) private readonly restaurantService: RestaurantService,
+    @inject(tokens.MemberInternalService) private readonly memberInternalService: MemberInternalService,
   ) {}
 
   async register(data: RegisterDTO) {
@@ -39,7 +40,7 @@ export class AuthService {
           email: data.email,
           phone: data.phone,
           name: data.name,
-          systemRole: SystemRole.CUSTOMER,
+          systemRole: data.role,
           password: data.password,
         },
         trx,
@@ -52,6 +53,8 @@ export class AuthService {
         }
 
         restaurant = await this.restaurantService.create(user.id, data.restaurant, trx);
+        await this.memberInternalService.createOwnerMember(restaurant.id, user.id, trx);
+
         restaurantMemberInfo = {
           restaurantId: restaurant.id,
           restaurantRole: 'owner',
@@ -95,7 +98,18 @@ export class AuthService {
       throw IncorrectCredentialsError;
     }
 
-    const payload: JwtPayload = { userId: user.id, email: user.email, role: user.systemRole };
+    let restaurantMemberInfo = null;
+    if (user.systemRole == SystemRole.RESTAURANT_USER) {
+      const memberData = await this.memberInternalService.getRestaurantMemberWithRole(user.id);
+      const branchIds = await this.memberInternalService.getBranchIdsByMemberId(memberData.member.id);
+      restaurantMemberInfo = {
+        restaurantId: memberData.member.restaurantId,
+        restaurantRole: memberData.roleName,
+        branchIds: branchIds,
+      };
+    }
+
+    const payload = { userId: user.id, email: user.email, role: user.systemRole, ...restaurantMemberInfo };
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
@@ -113,23 +127,9 @@ export class AuthService {
   }
 
   async forgetPassword(data: ForgetPasswordDTO) {
-    const user = await this.userService.getByEmail(data.email);
-    if (!user) {
-      return { message: 'Email Sent with OTP' };
-    }
+    const otp = await this.createPasswordReset(data.email);
 
-    const otp = generateOTP();
-    const hashedOTP = hashOTP(otp);
-    const date = new Date();
-
-    await this.passwordResetRepository.create({
-      userId: user.id,
-      otpHash: hashedOTP,
-      createdAt: date,
-      expiresAt: new Date(Date.now() + toMs(10, 'm')),
-    });
-
-    // send password to user
+    // TODO: USE EMAIL GET
     logger.info(`OTP: ${otp}`);
   }
 
@@ -170,5 +170,26 @@ export class AuthService {
     });
 
     return { accessToken };
+  }
+
+  // --- Helpers to generate otp, create password reset record and send email ---
+  async createPasswordReset(email: string) {
+    const user = await this.userService.getByEmail(email);
+    if (!user) {
+      return { message: 'Email Sent with OTP' };
+    }
+
+    const otp = generateOTP();
+    const hashedOTP = hashOTP(otp);
+    const date = new Date();
+
+    await this.passwordResetRepository.create({
+      userId: user.id,
+      otpHash: hashedOTP,
+      createdAt: date,
+      expiresAt: new Date(Date.now() + toMs(10, 'm')),
+    });
+
+    return otp;
   }
 }

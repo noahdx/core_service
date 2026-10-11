@@ -20,6 +20,14 @@ import { ProductService } from '../../app/product/service/product.service';
 import { ProductController } from '../../app/product/controller/product.controller';
 import { CategoryRepository } from '../../app/product/repository/category.repository';
 import { ProductBranchDetailsRepository } from '../../app/product/repository/product-branch-details.repository';
+import { RoleRepository } from '../../app/rbac/repository/role.repository';
+import { RestaurantMemberRepository } from '../../app/rbac/repository/restaurant_member.repository';
+import { MemberBranchRepository } from '../../app/rbac/repository/member-branch.repository';
+import { PermissionRepository } from '../../app/rbac/repository/permission.repository';
+import { MemberService } from '../../app/rbac/service/member.service';
+import { PermissionCacheService } from '../../app/rbac/service/permission-cache.service';
+import { MemberController } from '../../app/rbac/controller/member.controller';
+import { MemberInternalService } from '../../app/rbac/service/member-internal.service';
 
 // Repositories
 container.registerSingleton<UserRepository>(tokens.UserRepository, UserRepository);
@@ -30,6 +38,10 @@ container.registerSingleton<BranchRepository>(tokens.BranchRepository, BranchRep
 container.registerSingleton<ProductRepository>(tokens.ProductRepository, ProductRepository);
 container.registerSingleton<CategoryRepository>(tokens.ProductCategoryRepository, CategoryRepository);
 container.registerSingleton<ProductBranchDetailsRepository>(tokens.PBDRepository, ProductBranchDetailsRepository);
+container.registerSingleton<RoleRepository>(tokens.RoleRepository, RoleRepository);
+container.registerSingleton<PermissionRepository>(tokens.PermissionRepository, PermissionRepository);
+container.registerSingleton<RestaurantMemberRepository>(tokens.RestaurantMemberRepository, RestaurantMemberRepository);
+container.registerSingleton<MemberBranchRepository>(tokens.MemberBranchRepository, MemberBranchRepository);
 
 // Services
 container.registerSingleton<UserService>(tokens.UserService, UserService);
@@ -38,6 +50,9 @@ container.registerSingleton<CustomerAddressService>(tokens.CustomerAddressServic
 container.registerSingleton<RestaurantService>(tokens.RestaurantService, RestaurantService);
 container.registerSingleton<BranchService>(tokens.BranchService, BranchService);
 container.registerSingleton<ProductService>(tokens.ProductService, ProductService);
+container.registerSingleton<MemberService>(tokens.MemberService, MemberService);
+container.registerSingleton<PermissionCacheService>(tokens.PermissionCacheService, PermissionCacheService);
+container.registerSingleton<MemberInternalService>(tokens.MemberInternalService, MemberInternalService);
 
 // Controllers
 container.registerSingleton<UserController>(tokens.UserController, UserController);
@@ -46,6 +61,7 @@ container.registerSingleton<CustomerAddressController>(tokens.CustomerAddressCon
 container.registerSingleton<RestaurantController>(tokens.RestaurantController, RestaurantController);
 container.registerSingleton<BranchController>(tokens.BranchController, BranchController);
 container.registerSingleton<ProductController>(tokens.ProductController, ProductController);
+container.registerSingleton<MemberController>(tokens.MemberController, MemberController);
 
 // Infrastructure
 

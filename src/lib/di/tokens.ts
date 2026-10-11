@@ -1,3 +1,5 @@
+import { MemberInternalService } from '../../app/rbac/service/member-internal.service';
+
 export const tokens = {
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
@@ -8,6 +10,10 @@ export const tokens = {
   ProductRepository: Symbol.for('ProductRepository'),
   ProductCategoryRepository: Symbol.for('ProductCategoryRepository'),
   PBDRepository: Symbol.for('PBDRepository'),
+  RoleRepository: Symbol.for('RoleRepository'),
+  PermissionRepository: Symbol.for('PermissionRepository'),
+  RestaurantMemberRepository: Symbol.for('RestaurantMemberRepository'),
+  MemberBranchRepository: Symbol.for('MemberBranchRepository'),
 
   // Services
   UserService: Symbol.for('UserService'),
@@ -16,6 +22,9 @@ export const tokens = {
   RestaurantService: Symbol.for('RestaurantService'),
   BranchService: Symbol.for('BranchService'),
   ProductService: Symbol.for('ProductService'),
+  MemberService: Symbol.for('MemberService'),
+  PermissionCacheService: Symbol.for('PermissionCacheService'),
+  MemberInternalService: Symbol.for('MemberInternalService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
@@ -24,6 +33,7 @@ export const tokens = {
   RestaurantController: Symbol.for('RestaurantController'),
   BranchController: Symbol.for('BranchController'),
   ProductController: Symbol.for('ProductController'),
+  MemberController: Symbol.for('MemberController'),
 
   // Infrastructure
 };

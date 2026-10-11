@@ -1,3 +1,12 @@
-// Admin will create a member with email and other data.
-// an email will be sent to the member with accept invite link and OTP
-// accept invite with otp, password
+1. rbac middleware:
+        main func: (action:resource):
+            midd func:
+                if admin then pass it
+                if restaurant user then check restaurant role:
+                    get pers from permission cache service (restaurant role)
+                    then check hasPermission(permissions[], action, resource)
+                    if true pass it
+                    if not throw error UnAuthorized
+
+
+
