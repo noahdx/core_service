@@ -4,14 +4,19 @@ import { tokens } from '../../lib/di/tokens';
 import { container } from '../../lib/di/container';
 import { ProductController } from './controller/product.controller';
 import { rbac, requireRestaurantMember } from '../../lib/auth/rbac';
+import { cacheLayer } from '../../lib/cache/cache-layer';
 
 export const productRouter = Router();
 
 const productController = container.resolve<ProductController>(tokens.ProductController);
 
 productRouter.get('/products/:id', productController.findById);
-productRouter.get('/branches/:branchId/products', productController.findByBranch);
-productRouter.get('/restaurants/:restaurantId/categories', productController.findCategories);
+productRouter.get('/branches/:branchId/products', cacheLayer({ branchScoped: true }), productController.findByBranch);
+productRouter.get(
+  '/restaurants/:restaurantId/categories',
+  cacheLayer({ restaurantScoped: true }),
+  productController.findCategories,
+);
 
 productRouter.get(
   '/restaurants/:restaurantId/products',

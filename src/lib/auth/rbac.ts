@@ -64,28 +64,40 @@ export function requireRestaurantMember(paramName: string = 'restaurantId') {
       }
     }
 
-    return res.status(403).json({ message: 'Permission denied' });
+    return res.status(403).json({ error: 'Permission denied' });
   };
 }
 
 export function requireBranchAccess(paramName: string = 'branchId') {
   return async (req: Request, res: Response, next: NextFunction) => {
+    // that's mean not authenticate
     if (!req.user) {
       throw NotAuthenticated;
     }
 
+    // system admins bypass
     if (req.user.role == SystemRole.SYSTEM_ADMIN) {
       return next();
     }
 
-    if (req.user.role == SystemRole.RESTAURANT_USER) {
-      const branchId = parseInt(req.params[paramName] as string);
-
-      if (Number(req.user.branchIds) == Number(branchId)) {
-        return next();
-      }
+    // owners have access to all branches
+    if (req.user?.restaurantRole == 'owner') {
+      return next();
     }
 
-    return res.status(403).json({ message: 'Permission denied' });
+    if (req.user.role == SystemRole.RESTAURANT_USER) {
+      const branchId = parseInt(req.params[paramName] as string) || parseInt(req.query[paramName] as string);
+
+      const userBranchIds = req.user?.branchIds || [];
+      if (!userBranchIds.includes(branchId)) {
+        return res.status(403).json({
+          error: 'You do not have access to this branch',
+        });
+      }
+
+      return next();
+    }
+
+    return res.status(403).json({ error: 'You do not have access to this branch' });
   };
 }

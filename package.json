@@ -31,6 +31,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^18.0.6",
     "express": "^5.2.1",
+    "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "knex": "^3.3.0",
     "node-mailjet": "^6.0.11",

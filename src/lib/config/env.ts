@@ -22,6 +22,10 @@ const schema = z.object({
   DB_MIGRATION_DIRECTORY: z.string().default('src/migrations'),
   DB_MIGRATION_EXTENSION: z.string().default('ts'),
 
+  REDIS_HOST: z.string().default('localhost'),
+  REDIS_PORT: z.string().default('6379'),
+  REDIS_PASSWORD: z.string(),
+
   ACCESS_SECRET: z.string().default('access-secret-default'),
   REFRESH_SECRET: z.string().default('refresh-secret-default'),
   ACCESS_EXPIRES_IN: z.string().default('1h'),
@@ -48,7 +52,6 @@ export const env = {
     migrationDirectory: path.resolve('../../../', parsed.DB_MIGRATION_DIRECTORY),
     migrationExtension: parsed.DB_MIGRATION_EXTENSION,
   },
-
   jwt: {
     accessToken: parsed.ACCESS_SECRET,
     refreshToken: parsed.REFRESH_SECRET,
@@ -60,5 +63,10 @@ export const env = {
     secretKey: parsed.MJ_SECRET_KEY,
     fromEmail: parsed.FROM_EMAIL,
     fromName: parsed.FROM_NAME,
+  },
+  redis: {
+    host: parsed.REDIS_HOST,
+    port: Number(parsed.REDIS_PORT),
+    password: parsed.REDIS_PASSWORD,
   },
 };
