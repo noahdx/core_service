@@ -79,9 +79,9 @@ export function requireBranchAccess(paramName: string = 'branchId') {
     }
 
     if (req.user.role == SystemRole.RESTAURANT_USER) {
-      const restaurantId = parseInt(req.params[paramName] as string);
+      const branchId = parseInt(req.params[paramName] as string);
 
-      if (Number(req.user.restaurantId) == Number(restaurantId)) {
+      if (Number(req.user.branchIds) == Number(branchId)) {
         return next();
       }
     }

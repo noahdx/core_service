@@ -26,6 +26,11 @@ const schema = z.object({
   REFRESH_SECRET: z.string().default('refresh-secret-default'),
   ACCESS_EXPIRES_IN: z.string().default('1h'),
   REFRESH_EXPIRES_IN: z.string().default('1d'),
+
+  MJ_API_KEY: z.string(),
+  MJ_SECRET_KEY: z.string(),
+  FROM_EMAIL: z.string(),
+  FROM_NAME: z.string().default('Quick Bit'),
 });
 
 const parsed = schema.parse(process.env);
@@ -49,5 +54,11 @@ export const env = {
     refreshToken: parsed.REFRESH_SECRET,
     accessExpiresIn: parsed.ACCESS_EXPIRES_IN,
     refreshExpiresIn: parsed.REFRESH_EXPIRES_IN,
+  },
+  mailjet: {
+    apiKey: parsed.MJ_API_KEY,
+    secretKey: parsed.MJ_SECRET_KEY,
+    fromEmail: parsed.FROM_EMAIL,
+    fromName: parsed.FROM_NAME,
   },
 };

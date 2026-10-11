@@ -1,13 +1,14 @@
 import { injectable } from 'tsyringe';
 import { PasswordResetEntity } from '../entity/password-reset.entity';
 import { db } from '../../../lib/knex/knex';
+import { Knex } from 'knex';
 
 @injectable()
 export class PasswordResetRepository {
   private COLUMNS = ['id', 'user_id', 'otp_hash', 'expires_at', 'consumed_at', 'created_at'];
 
-  async create(data: Partial<PasswordResetEntity>): Promise<PasswordResetEntity> {
-    const [row] = await db('password_resets')
+  async create(data: Partial<PasswordResetEntity>, trx: Knex = db): Promise<PasswordResetEntity> {
+    const [row] = await trx('password_resets')
       .insert({
         user_id: data.userId,
         otp_hash: data.otpHash,

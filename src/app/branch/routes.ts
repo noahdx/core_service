@@ -16,7 +16,7 @@ branchRouter.patch(
   '/branches/:branchId',
   authenticate,
   requireBranchAccess('branchId'),
-  rbac({ resource: 'core:member', action: 'update' }),
+  rbac({ resource: 'core:branch', action: 'update' }),
   branchController.update,
 );
 branchRouter.patch('/branches/:branchId/status', authenticate, branchController.updateStatus); // system_admin only, checked in service

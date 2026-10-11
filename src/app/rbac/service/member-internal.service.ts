@@ -16,6 +16,10 @@ export class MemberInternalService {
     @inject(tokens.RestaurantMemberRepository) private readonly restaurantMemberRepository: RestaurantMemberRepository,
   ) {}
 
+  async activeMember(userId: number, trx?: Knex) {
+    await this.restaurantMemberRepository.activateMemberByUserId(userId, trx);
+  }
+
   async getRestaurantMemberWithRole(userId: number) {
     return await this.restaurantMemberRepository.findRestaurantMemberWithRole(userId);
   }

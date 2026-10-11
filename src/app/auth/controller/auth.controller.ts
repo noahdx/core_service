@@ -35,25 +35,47 @@ export class AuthController {
   };
 
   forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
-    const data = await validateBody(ForgetPasswordDTO, req.body);
-    const result = await this.authService.forgetPassword(data);
-    res.status(200).json(result);
+    try {
+      const data = await validateBody(ForgetPasswordDTO, req.body);
+      const result = await this.authService.forgetPassword(data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
   };
 
   resetPassword = async (req: Request, res: Response, next: NextFunction) => {
-    const data = await validateBody(ResetPasswordDTO, req.body);
-    const result = await this.authService.resetPassword(data);
-    res.status(200).json(result);
+    try {
+      const data = await validateBody(ResetPasswordDTO, req.body);
+      const result = await this.authService.resetPassword(data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
   };
 
   refresh = async (req: Request, res: Response, next: NextFunction) => {
-    const result = await this.authService.refresh(req.cookies.refresh_token);
-    res.cookie('access_token', result.accessToken, {
-      httpOnly: true,
-      secure: env.isProduction,
-      maxAge: toMs(1, 'h'),
-    });
+    try {
+      const result = await this.authService.refresh(req.cookies.refresh_token);
+      res.cookie('access_token', result.accessToken, {
+        httpOnly: true,
+        secure: env.isProduction,
+        maxAge: toMs(1, 'h'),
+      });
 
-    res.status(200).json({ message: 'Success' });
+      res.status(200).json({ message: 'Success' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  acceptInvite = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await validateBody(ResetPasswordDTO, req.body);
+      const result = await this.authService.acceptInvite(data);
+      res.status(200).json(result);
+    } catch (err) {
+      next(err);
+    }
   };
 }

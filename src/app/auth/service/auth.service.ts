@@ -14,10 +14,12 @@ import {
 import { IncorrectCredentialsError, InvalidOTPError, RestaurantDataRequiredError } from '../errors';
 import { PasswordResetRepository } from '../repository/password-reset.repository';
 import { toMs } from '../../../pkg/utils/time';
-import { logger } from '../../../lib/logger/logger';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { db } from '../../../lib/knex/knex';
 import { MemberInternalService } from '../../rbac/service/member-internal.service';
+import { emailProvider } from '../../../lib/email/init';
+import { passwordResetEmail } from '../templates/password-reset';
+import { Knex } from 'knex';
 
 @injectable()
 export class AuthService {
@@ -128,9 +130,14 @@ export class AuthService {
 
   async forgetPassword(data: ForgetPasswordDTO) {
     const otp = await this.createPasswordReset(data.email);
+    if (!otp) {
+      return { message: 'Email Sent with OTP' };
+    }
 
-    // TODO: USE EMAIL GET
-    logger.info(`OTP: ${otp}`);
+    const email = passwordResetEmail(otp);
+    await emailProvider.send(data.email, email.subject, email.html);
+
+    return { message: 'Email Sent with OTP' };
   }
 
   async resetPassword(data: ResetPasswordDTO) {
@@ -153,7 +160,7 @@ export class AuthService {
     await this.userService.updatePassword(user.id, data.newPassword);
     await this.passwordResetRepository.markAsConsumed(user.id);
 
-    return { message: 'Password reset successfully' };
+    return { message: 'Password reset successfully', userId: user.id };
   }
 
   async refresh(refreshToken: string) {
@@ -172,23 +179,33 @@ export class AuthService {
     return { accessToken };
   }
 
+  acceptInvite = async (data: ResetPasswordDTO) => {
+    const user = await this.resetPassword(data);
+    // activate member
+    await this.memberInternalService.activeMember(user.userId);
+    return { message: 'Invitation accepted successfully, please login again' };
+  };
+
   // --- Helpers to generate otp, create password reset record and send email ---
-  async createPasswordReset(email: string) {
+  async createPasswordReset(email: string, trx?: Knex) {
     const user = await this.userService.getByEmail(email);
     if (!user) {
-      return { message: 'Email Sent with OTP' };
+      return;
     }
 
     const otp = generateOTP();
     const hashedOTP = hashOTP(otp);
     const date = new Date();
 
-    await this.passwordResetRepository.create({
-      userId: user.id,
-      otpHash: hashedOTP,
-      createdAt: date,
-      expiresAt: new Date(Date.now() + toMs(10, 'm')),
-    });
+    await this.passwordResetRepository.create(
+      {
+        userId: user.id,
+        otpHash: hashedOTP,
+        createdAt: date,
+        expiresAt: new Date(Date.now() + toMs(10, 'm')),
+      },
+      trx,
+    );
 
     return otp;
   }

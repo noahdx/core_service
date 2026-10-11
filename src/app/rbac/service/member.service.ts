@@ -20,6 +20,8 @@ import { SystemRole } from '../../user/types';
 import { MemberStatus } from '../types';
 import { MemberBranchEntity } from '../entity/member-branch.entity';
 import { AuthService } from '../../auth/service/auth.service';
+import { emailProvider } from '../../../lib/email/init';
+import { memberInvitationEmail } from '../templates/password-reset';
 
 @injectable()
 export class MemberService {
@@ -118,8 +120,9 @@ export class MemberService {
       await this.memberBranchRepository.setMemberBranches(member.id, rows, trx);
 
       // generate otp, create password reset record and send email
-      await this.authService.createPasswordReset(user.email);
-      // TODO: USE EMAIL GET
+      const otp = (await this.authService.createPasswordReset(user.email, trx)) as string;
+      const email = memberInvitationEmail(user.email);
+      await emailProvider.send(user.email, email.subject, email.html);
 
       await trx.commit();
 
