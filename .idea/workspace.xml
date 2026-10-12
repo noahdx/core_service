@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c5dca41-2958-4e80-aa9e-57e0447c2380" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lib/cache/cache-layer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/cache/init.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pkg/cache/cache.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pkg/cache/redis.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/branch/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/branch/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/product/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/product/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/auth/rbac.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/auth/rbac.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/config/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,61 +35,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="4.845692719217681E-187" />
-      <entry key="S30" value="1.1401733453077816E-62" />
-      <entry key="S60" value="1.5974545754232322E-31" />
-      <entry key="M2" value="7.614949932921404E-16" />
-      <entry key="M5" value="5.442870715771323E-6" />
-      <entry key="M10" value="0.021618215655378886" />
-      <entry key="M15" value="0.4155837278359277" />
-      <entry key="M30" value="10.13973047363277" />
-      <entry key="H1" value="66.02600469143236" />
-      <entry key="H2" value="226.04795838897095" />
-      <entry key="H4" value="536.2875717689941" />
-      <entry key="D1" value="1419.4957096101655" />
-      <entry key="W1" value="1725.4686583560253" />
+      <entry key="MS100" value="1.614271500584008" />
+      <entry key="MS500" value="3.3410934098991523" />
+      <entry key="S2" value="5.870438449301819" />
+      <entry key="S5" value="10.124580920778438" />
+      <entry key="S10" value="17.45878607318559" />
+      <entry key="S30" value="37.07629612440465" />
+      <entry key="S60" value="49.70069320360503" />
+      <entry key="M2" value="58.89058509402661" />
+      <entry key="M5" value="65.74063094050277" />
+      <entry key="M10" value="68.3081959414149" />
+      <entry key="M15" value="69.48323355183139" />
+      <entry key="M30" value="78.75469230557657" />
+      <entry key="H1" value="131.6055940766438" />
+      <entry key="H2" value="288.16270291146776" />
+      <entry key="H4" value="596.8061910146268" />
+      <entry key="D1" value="1485.8663813018118" />
+      <entry key="W1" value="1795.664253578344" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0000000283908248" />
-      <entry key="MS500" value="1.030948214747907" />
-      <entry key="S2" value="1.4194294301973511" />
-      <entry key="S5" value="1.7064209333154035" />
-      <entry key="S10" value="1.8404885087348926" />
-      <entry key="S30" value="1.9437216681349434" />
-      <entry key="S60" value="1.9714533792905058" />
-      <entry key="M2" value="1.9856233455486474" />
-      <entry key="M5" value="1.9942287858259673" />
-      <entry key="M10" value="2.007357355870893" />
-      <entry key="M15" value="2.156328400022997" />
-      <entry key="M30" value="5.204217383833655" />
-      <entry key="H1" value="23.29346811511152" />
-      <entry key="H2" value="85.56552638269885" />
-      <entry key="H4" value="217.83796326570717" />
-      <entry key="D1" value="586.2728896002072" />
-      <entry key="W1" value="709.6111921977334" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="7.848163592233813E-245" />
+      <entry key="S2" value="1.3258567520258064E-61" />
+      <entry key="S5" value="6.610575805112248E-25" />
+      <entry key="S10" value="1.1455384478386163E-12" />
+      <entry key="S30" value="1.6595598883835508E-4" />
+      <entry key="S60" value="0.018216541940389942" />
+      <entry key="M2" value="0.19086952100607757" />
+      <entry key="M5" value="0.7814674010973314" />
+      <entry key="M10" value="1.2565872142372878" />
+      <entry key="M15" value="1.5779510665113445" />
+      <entry key="M30" value="4.451893262777615" />
+      <entry key="H1" value="21.544122590943314" />
+      <entry key="H2" value="82.28982807035126" />
+      <entry key="H4" value="213.62753636941483" />
+      <entry key="D1" value="584.3688927306914" />
+      <entry key="W1" value="709.2815110604846" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="5.204073215124379E-5" />
-      <entry key="MS500" value="0.14685056326586374" />
-      <entry key="S2" value="0.9075747834283378" />
-      <entry key="S5" value="1.4362001538369877" />
-      <entry key="S10" value="1.690440101135781" />
-      <entry key="S30" value="1.8898872917354037" />
-      <entry key="S60" value="1.9440238120626678" />
-      <entry key="M2" value="1.9717776721176248" />
-      <entry key="M5" value="1.988664144626626" />
-      <entry key="M10" value="2.0261407186229894" />
-      <entry key="M15" value="2.569585253100743" />
-      <entry key="M30" value="15.338371479506607" />
-      <entry key="H1" value="89.30420055824705" />
-      <entry key="H2" value="311.58571879964126" />
-      <entry key="H4" value="754.0913595520124" />
-      <entry key="D1" value="2005.7538259359437" />
-      <entry key="W1" value="2435.0773124752823" />
+      <entry key="MS100" value="1.473122037698704" />
+      <entry key="MS500" value="3.2925208275336244" />
+      <entry key="S2" value="5.8520922444280306" />
+      <entry key="S5" value="10.112099689447955" />
+      <entry key="S10" value="17.44752538553891" />
+      <entry key="S30" value="37.06639930657728" />
+      <entry key="S60" value="49.710848297333634" />
+      <entry key="M2" value="59.07506140227137" />
+      <entry key="M5" value="66.51751860390952" />
+      <entry key="M10" value="69.5617380755214" />
+      <entry key="M15" value="71.05861804852582" />
+      <entry key="M30" value="83.2013747763716" />
+      <entry key="H1" value="153.13536890118857" />
+      <entry key="H2" value="370.42571618330794" />
+      <entry key="H4" value="810.4001564197408" />
+      <entry key="D1" value="2070.22053937778" />
+      <entry key="W1" value="2504.943226402135" />
     </decayedShown>
   </component>
   <component name="OptimizeOnSaveOptions">
@@ -113,34 +104,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "KEY_CHAT_IN_TOOLWINDOW": "false",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "code.cleanup.on.save": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "javascript.preferred.runtime.type.id": "node",
-    "last_opened_file_path": "/home/noah/WebstormProjects/core-service/src/app/rbac",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.format.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "/home/noah/WebstormProjects/core-service/node_modules/prettier",
-    "rearrange.code.on.save": "true",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/noah/WebstormProjects/core-service/node_modules/typescript/lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;KEY_CHAT_IN_TOOLWINDOW&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/noah/WebstormProjects/core-service/src/app/rbac&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/prettier&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/noah/WebstormProjects/core-service/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app/rbac" />
@@ -186,7 +177,8 @@
       <workItem from="1791681478252" duration="2189000" />
       <workItem from="1791711491471" duration="4735000" />
       <workItem from="1791723696391" duration="3595000" />
-      <workItem from="1791735650658" duration="13329000" />
+      <workItem from="1791735650658" duration="14370000" />
+      <workItem from="1791758763548" duration="7000" />
     </task>
     <servers />
   </component>

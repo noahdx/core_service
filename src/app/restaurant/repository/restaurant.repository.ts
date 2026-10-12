@@ -1,7 +1,13 @@
-import { injectable } from 'tsyringe';
-import { RestaurantEntity } from '../entity/restaurant.entity';
-import { db } from '../../../lib/knex/knex';
 import { Knex } from 'knex';
+import { injectable } from 'tsyringe';
+import {
+  applyCursorPagination,
+  applyFilters,
+  IFilterParams,
+  IPaginationParams,
+} from '../../../lib/http/pagination/cursor-pagination';
+import { db } from '../../../lib/knex/knex';
+import { RestaurantEntity } from '../entity/restaurant.entity';
 
 @injectable()
 export class RestaurantRepository {
@@ -20,6 +26,14 @@ export class RestaurantRepository {
   async findById(id: number) {
     const row = await db('restaurants').where('id', id).select(this.COLUMNS).first();
     return row ? this.toEntity(row) : undefined;
+  }
+
+  async findAll(params: IPaginationParams, filters: IFilterParams[]): Promise<RestaurantEntity[]> {
+    let query = db('restaurants').select(this.COLUMNS);
+    applyCursorPagination(query, params);
+    applyFilters(query, filters);
+    const rows = await query;
+    return rows.map(this.toEntity);
   }
 
   async create(data: Partial<RestaurantEntity>, trx: Knex = db): Promise<RestaurantEntity> {

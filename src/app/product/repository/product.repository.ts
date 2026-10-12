@@ -1,6 +1,12 @@
 import { injectable } from 'tsyringe';
-import { ProductEntity } from '../entity/product.entity';
+import {
+  applyCursorPagination,
+  applyFilters,
+  IFilterParams,
+  IPaginationParams,
+} from '../../../lib/http/pagination/cursor-pagination';
 import { db } from '../../../lib/knex/knex';
+import { ProductEntity } from '../entity/product.entity';
 
 interface IFindByBranch {
   id: number;
@@ -34,13 +40,21 @@ export class ProductRepository {
     return row ? this.toEntity(row) : undefined;
   }
 
-  async findByRestaurant(restaurantId: number): Promise<ProductEntity[]> {
-    const rows = await db('products').select(this.COLUMNS).where('restaurant_id', restaurantId).whereNull('deleted_at');
+  async findByRestaurant(
+    restaurantId: number,
+    params: IPaginationParams,
+    filters: IFilterParams[],
+  ): Promise<ProductEntity[]> {
+    let query = db('products').select(this.COLUMNS).where('restaurant_id', restaurantId).whereNull('deleted_at');
+    applyCursorPagination(query, params);
+    applyFilters(query, filters);
+    const rows = await query;
+
     return rows.map(this.toEntity);
   }
 
-  async findByBranch(branchId: number): Promise<IFindByBranch[]> {
-    const rows = await db('products as p')
+  async findByBranch(branchId: number, params: IPaginationParams, filters: IFilterParams[]): Promise<IFindByBranch[]> {
+    let query = db('products as p')
       .join('product_branch_details as pbd', 'p.id', 'pbd.product_id')
       .leftJoin('product_categories as pc', 'p.category_id', 'pc.id')
       .where('pbd.branch_id', branchId)
@@ -57,6 +71,11 @@ export class ProductRepository {
         'pbd.stock',
         'pbd.is_available',
       );
+
+    applyCursorPagination(query, params);
+    applyFilters(query, filters);
+    const rows = await query;
+
     return rows.map((row: any) => ({
       id: row.id,
       name: row.name,

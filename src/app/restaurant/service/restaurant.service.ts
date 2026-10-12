@@ -1,20 +1,25 @@
+import { Knex } from 'knex';
 import { inject, injectable } from 'tsyringe';
+import { UnAuthorizedError } from '../../../lib/auth/errors';
 import { tokens } from '../../../lib/di/tokens';
-import { RestaurantRepository } from '../repository/restaurant.repository';
-import { RestaurantNotFoundError } from '../errors';
+import {
+  buildPaginationResult,
+  IFilterParams,
+  IPaginationParams,
+} from '../../../lib/http/pagination/cursor-pagination';
+import { db } from '../../../lib/knex/knex';
+import { UserAlreadyExistsError } from '../../user/errors';
+import { UserService } from '../../user/service/user.service';
+import { SystemRole } from '../../user/types';
 import {
   CreateRestaurantDTO,
   RegisterRestaurantDTO,
   UpdatedRestaurantDTO,
   UpdateRestaurantStatusDTO,
 } from '../dto/restaurant-req-.dto';
+import { RestaurantNotFoundError } from '../errors';
+import { RestaurantRepository } from '../repository/restaurant.repository';
 import { RestaurantStatus } from '../types';
-import { Knex } from 'knex';
-import { SystemRole } from '../../user/types';
-import { UnAuthorizedError } from '../../../lib/auth/errors';
-import { UserService } from '../../user/service/user.service';
-import { UserAlreadyExistsError } from '../../user/errors';
-import { db } from '../../../lib/knex/knex';
 
 @injectable()
 export class RestaurantService {
@@ -29,10 +34,12 @@ export class RestaurantService {
       throw RestaurantNotFoundError;
     }
 
-    return {
-      message: 'Restaurant retrieved successfully',
-      data: restaurant,
-    };
+    return { data: restaurant };
+  }
+
+  async getAll(params: IPaginationParams, filters: IFilterParams[]) {
+    const restaurants = await this.restaurantRepository.findAll(params, filters);
+    return buildPaginationResult(restaurants, params.limit, params.orderBy);
   }
 
   async createWithOwner(systemRole: SystemRole, data: RegisterRestaurantDTO) {
@@ -115,10 +122,7 @@ export class RestaurantService {
 
     const updated = await this.restaurantRepository.update(id, data);
 
-    return {
-      message: 'Restaurant updated successfully',
-      data: updated,
-    };
+    return { data: updated };
   }
 
   async updateStatus(systemRole: SystemRole, id: number, data: UpdateRestaurantStatusDTO) {
@@ -133,9 +137,6 @@ export class RestaurantService {
 
     const updated = await this.restaurantRepository.updateStatus(id, data.status);
 
-    return {
-      message: 'Restaurant updated successfully',
-      data: updated,
-    };
+    return { data: updated };
   }
 }

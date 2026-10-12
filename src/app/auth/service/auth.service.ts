@@ -1,8 +1,8 @@
+import { Knex } from 'knex';
 import { inject, injectable } from 'tsyringe';
 import { tokens } from '../../../lib/di/tokens';
-import { UserService } from '../../user/service/user.service';
-import { ForgetPasswordDTO, LoginDTO, RegisterDTO, ResetPasswordDTO } from '../dto/auth-req.dto';
-import { SystemRole } from '../../user/types';
+import { emailProvider } from '../../../lib/email/init';
+import { db } from '../../../lib/knex/knex';
 import {
   generateAccessToken,
   generateOTP,
@@ -11,15 +11,15 @@ import {
   verifyPassword,
   verifyRefreshToken,
 } from '../../../lib/utils/common';
+import { toMs } from '../../../pkg/utils/time';
+import { MemberInternalService } from '../../rbac/service/member-internal.service';
+import { RestaurantService } from '../../restaurant/service/restaurant.service';
+import { UserService } from '../../user/service/user.service';
+import { SystemRole } from '../../user/types';
+import { ForgetPasswordDTO, LoginDTO, RegisterDTO, ResetPasswordDTO } from '../dto/auth-req.dto';
 import { IncorrectCredentialsError, InvalidOTPError, RestaurantDataRequiredError } from '../errors';
 import { PasswordResetRepository } from '../repository/password-reset.repository';
-import { toMs } from '../../../pkg/utils/time';
-import { RestaurantService } from '../../restaurant/service/restaurant.service';
-import { db } from '../../../lib/knex/knex';
-import { MemberInternalService } from '../../rbac/service/member-internal.service';
-import { emailProvider } from '../../../lib/email/init';
 import { passwordResetEmail } from '../templates/password-reset';
-import { Knex } from 'knex';
 
 @injectable()
 export class AuthService {

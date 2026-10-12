@@ -1,12 +1,115 @@
-1. rbac middleware:
-        main func: (action:resource):
-            midd func:
-                if admin then pass it
-                if restaurant user then check restaurant role:
-                    get pers from permission cache service (restaurant role)
-                    then check hasPermission(permissions[], action, resource)
-                    if true pass it
-                    if not throw error UnAuthorized
+Project Summary: Core Service (Restaurant Management System)
+Architecture Overview
+- Stack: Node.js/Express + TypeScript + PostgreSQL (Knex) + Redis + JWT
+- Pattern: Clean Architecture — Controller → Service → Repository → Database
+- DI: tsyringe with singleton-scoped services
+- Validation: class-validator + class-transformer via validateBody()
+- Auth: JWT in httpOnly cookies (access 1h, refresh longer), bcrypt passwords
+Domain Modules & Workflows
+Module	Purpose	Key Flows
+Auth	Login/Register/Forgot/Reset/Invite	Register → (if restaurant_user) create Restaurant + Owner Member → issue tokens
+User	Profile, password update	Standard CRUD + password hashing
+Restaurant	Restaurant entity + owner linkage	Admin creates with owner; owner updates own; admin changes status
+Branch	Physical locations per restaurant	Owner/admin CRUD; geo search (findNearBranches)
+Product	Menu items with branch-level price/stock	Owner/admin CRUD; auto-get-or-create category; branch details (PBD)
+RBAC (Member)	Team management per restaurant	Invite (inactive + OTP email) → accept invite (set password + activate) → assign role + branches
+Customer Address	Delivery addresses for customers	Standard CRUD with default flag
+RBAC / Permission Model
+System Roles: system_admin | restaurant_user | customer | delivery_agent
 
+Restaurant Roles (for restaurant_user):
+  - owner: ALL permissions
+  - branch_manager: product CRUD, member read, branch update
+  - staff: product read, member read
 
+Permissions (resource:action):
+  core:product:create/read/update
+  core:member:create/read/update/delete
+  core:branch:create/update
+  core:restaurant:update
+- Middleware: rbac({resource, action}) checks PermissionCacheService (1h TTL, in-memory Map)
+- Ownership guards: requireRestaurantMember, requireBranchAccess
+Key Strengths
+1. Layer separation is clean — controllers are thin, services hold business logic, repositories do SQL.
+2. Transactions used correctly for multi-table writes (register, create member, create restaurant).
+3. DI tokens are centralized; easy to swap implementations.
+4. Migrations are explicit, idempotent, with indexes on FKs.
+5. Correlation IDs on every request for tracing.
+6. Error handling via AppError + global handler — operational vs. unexpected errors distinguished.
+Issues & Refactoring Hints
+1. Critical: requireBranchAccess Bug (line 84 in rbac.ts)
+// CURRENT — compares entire array to single number
+if (Number(req.user.branchIds) == Number(branchId))  // ❌ branchIds is number[]
 
+// FIX — check inclusion
+if (req.user.branchIds?.includes(branchId))
+This middleware will never allow access for branch-scoped routes.
+2. Permission Cache Not Invalidated
+- PermissionCacheService uses in-memory Map with 1h TTL.
+- No invalidation on role/permission changes (e.g., after updateMember, deleteMember, or direct DB changes).
+- Fix: Add invalidate(roleName) and call it in MemberService.update/delete, or switch to Redis with pub/sub invalidation.
+3. acceptInvite Uses Wrong DTO
+// auth.controller.ts:74
+const data = await validateBody(ResetPasswordDTO, req.body);
+Should use a dedicated AcceptInviteDTO (needs email, password, otp — not just newPassword).
+4. N+1 Risk in findByIdWithRestaurant (BranchService)
+const branch = await this.branchRepository.findById(branchId);
+const restaurant = await this.restaurantService.getById(branch.restaurantId); // 2nd query
+Use a JOIN or findByIdWithRestaurant in repository to fetch in one query.
+5. Inconsistent Return Shapes
+Some services return { message, data }, others return raw entities, others return { message } only.
+- Standardize: Always { message: string, data?: T } for success.
+6. Missing Authorization on Some Routes
+- GET /branch/:id (findByIdWithRestaurant) — no rbac or requireBranchAccess middleware on route.
+- GET /product/branch/:branchId — no check that user belongs to that branch/restaurant.
+- Audit all routes and attach appropriate middleware.
+7. refresh Token Rotation Not Implemented
+- Refresh endpoint issues new access token but does not rotate refresh token.
+- If refresh token is stolen, attacker has persistent access.
+- Fix: Issue new refresh token + invalidate old one (store token hash or JTI in DB).
+8. createPasswordReset Leaks User Existence
+// auth.service.ts:190-194
+const user = await this.userService.getByEmail(email);
+if (!user) return; // silently returns — no OTP sent
+This allows email enumeration. Always return success even if email not found (already done in forgetPassword but the helper exposes the leak).
+9. Hardcoded Commission/Status Defaults
+// branch.service.ts:98-101
+isActive: false,
+acceptOrders: true,
+currency: data.currency,
+commission: 0,  // hardcoded
+Move to config or restaurant-level defaults.
+10. No Pagination on List Endpoints
+- listMembers, getByRestaurant, findByRestaurant, findCategories — return all rows.
+- Add limit/offset or cursor pagination.
+11. Type Safety: req.user Augmentation
+- express.d.ts should define Request.user with exact shape:
+interface UserPayload {
+  userId: number;
+  email: string;
+  role: SystemRole;
+  restaurantId?: number;
+  restaurantRole?: string;
+  branchIds?: number[];
+}
+Currently req.user is any — loses IntelliSense.
+12. Migration: restaurants Table Missing ownerId FK Index
+Check migration 20261009230442_create_restaurants_table.ts — ensure ownerId has index (used in RestaurantService.update ownership check).
+13. Testing Gap
+- No test files visible. Add:
+- Unit tests for services (mock repositories)
+- Integration tests for auth/RBAC flows
+- Contract tests for DTOs
+14. Observability
+- Logger only logs errors. Add request logging (method, path, status, latency) via middleware.
+- Health check only pings DB — add Redis, disk space, memory.
+Priority Fixes
+Priority	Issue
+🔴 Critical	requireBranchAccess bug (broken branch-scoped auth)
+🔴 Critical	Permission cache stale reads
+🟠 High	Refresh token rotation
+🟠 High	Missing RBAC middleware on branch/product routes
+🟡 Medium	Standardize response shapes
+🟡 Medium	Pagination on list endpoints
+🟢 Low	Email enumeration, hardcoded defaults, observability
+Would you like me to implement any of these fixes? I can start with the critical requireBranchAccess bug and permission cache invalidation.

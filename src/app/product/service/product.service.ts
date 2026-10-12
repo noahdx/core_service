@@ -1,14 +1,19 @@
 import { inject, injectable } from 'tsyringe';
+import { UnAuthorizedError } from '../../../lib/auth/errors';
 import { tokens } from '../../../lib/di/tokens';
-import { ProductRepository } from '../repository/product.repository';
+import {
+  buildPaginationResult,
+  IFilterParams,
+  IPaginationParams,
+} from '../../../lib/http/pagination/cursor-pagination';
+import { RestaurantNotFoundError } from '../../restaurant/errors';
+import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { SystemRole } from '../../user/types';
 import { CreateProductDTO, UpdateProductDTO } from '../dto/product-req.dto';
-import { RestaurantService } from '../../restaurant/service/restaurant.service';
-import { RestaurantNotFoundError } from '../../restaurant/errors';
-import { UnAuthorizedError } from '../../../lib/auth/errors';
-import { ProductBranchDetailsRepository } from '../repository/product-branch-details.repository';
-import { CategoryRepository } from '../repository/category.repository';
 import { ProductNotFoundError } from '../errors';
+import { CategoryRepository } from '../repository/category.repository';
+import { ProductBranchDetailsRepository } from '../repository/product-branch-details.repository';
+import { ProductRepository } from '../repository/product.repository';
 
 @injectable()
 export class ProductService {
@@ -31,7 +36,13 @@ export class ProductService {
     };
   }
 
-  async findByRestaurant(restaurantId: number, userId: number, userRole: SystemRole) {
+  async findByRestaurant(
+    restaurantId: number,
+    userId: number,
+    userRole: SystemRole,
+    params: IPaginationParams,
+    filters: IFilterParams[],
+  ) {
     const restaurant = await this.restaurantService.getById(restaurantId);
     if (!restaurant) {
       throw RestaurantNotFoundError;
@@ -40,16 +51,13 @@ export class ProductService {
     if (userRole !== SystemRole.SYSTEM_ADMIN && Number(restaurant.data.ownerId) !== userId) {
       throw UnAuthorizedError;
     }
-    const products = await this.productRepository.findByRestaurant(restaurantId);
-
-    return {
-      message: 'Products retrieved successfully',
-      data: products,
-    };
+    const products = await this.productRepository.findByRestaurant(restaurantId, params, filters);
+    return buildPaginationResult(products, params.limit, params.sortBy);
   }
 
-  async findByBranch(branchId: number) {
-    const products = await this.productRepository.findByBranch(branchId);
+  async findByBranch(branchId: number, params: IPaginationParams, filters: IFilterParams[]) {
+    const products = await this.productRepository.findByBranch(branchId, params, filters);
+    return buildPaginationResult(products, params.limit, params.orderBy);
     return {
       message: 'Products retrieved successfully',
       data: products,

@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 
+import { tokens } from '../../../lib/di/tokens';
+import { parseFilters, parsePagination } from '../../../lib/http/pagination/parse-query';
+import { sendPaginated } from '../../../lib/http/response';
 import { validateBody } from '../../../lib/validation/validate';
 import { SystemRole } from '../../user/types';
 import { CreateProductDTO, UpdateProductDTO } from '../dto/product-req.dto';
 import { ProductService } from '../service/product.service';
-import { tokens } from '../../../lib/di/tokens';
 
 @injectable()
 export class ProductController {
@@ -24,8 +26,10 @@ export class ProductController {
   findByBranch = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const branchId = Number(req.params.branchId);
-      const results = await this.productService.findByBranch(branchId);
-      res.status(200).json(results);
+      const params = parsePagination(req.query, ['id', 'name', 'createdAt']);
+      const filters = parseFilters(req.query, ['name', 'createdAt', 'categoryId']);
+      const results = await this.productService.findByBranch(branchId, params, filters);
+      sendPaginated(res, results.data);
     } catch (error) {
       next(error);
     }
@@ -36,8 +40,10 @@ export class ProductController {
       const restaurantId = Number(req.params.restaurantId);
       const userId = req.user?.userId!;
       const role = req.user?.role! as SystemRole;
-      const result = await this.productService.findByRestaurant(restaurantId, userId, role);
-      res.status(200).json(result);
+      const params = parsePagination(req.query, ['id', 'name', 'createdAt']);
+      const filters = parseFilters(req.query, ['name', 'createdAt']);
+      const result = await this.productService.findByRestaurant(restaurantId, userId, role, params, filters);
+      sendPaginated(res, result.data, result.meta);
     } catch (error) {
       next(error);
     }
