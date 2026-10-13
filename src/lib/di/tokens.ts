@@ -1,5 +1,3 @@
-import { MemberInternalService } from '../../app/rbac/service/member-internal.service';
-
 export const tokens = {
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
@@ -36,4 +34,6 @@ export const tokens = {
   MemberController: Symbol.for('MemberController'),
 
   // Infrastructure
+  CacheProvider: Symbol.for('CacheProvider'),
+  EmailProvider: Symbol.for('EmailProvider'),
 };

@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ICacheProvider } from '../../pkg/cache/cache.interface';
-import { container } from '../di/container';
-import { TOKENS } from '../di/tokens';
 import { toSeconds } from '../../pkg/utils/time';
+import { container } from '../di/container';
+import { tokens } from '../di/tokens';
 
 const TTL = toSeconds(1, 'd');
 
@@ -30,7 +30,7 @@ export function idempotency(options: IdempotencyOptions = {}) {
     }
 
     try {
-      const cacheProvider: ICacheProvider = container.resolve(TOKENS.CacheProvider);
+      const cacheProvider: ICacheProvider = container.resolve(tokens.CacheProvider);
       const key = `idempotency:${req.method}:${req.originalUrl}:${idempotencyKey}`;
 
       const cached = await cacheProvider.get(key);

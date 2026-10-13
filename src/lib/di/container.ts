@@ -1,33 +1,35 @@
 import { container } from 'tsyringe';
-import { tokens } from './tokens';
-import { UserRepository } from '../../app/user/repository/user.repository';
-import { PasswordResetRepository } from '../../app/auth/repository/password-reset.repository';
-import { UserService } from '../../app/user/service/user.service';
-import { UserController } from '../../app/user/controller/user.controller';
-import { AuthService } from '../../app/auth/service/auth.service';
 import { AuthController } from '../../app/auth/controller/auth.controller';
-import { CustomerAddressRepository } from '../../app/customer-address/repository/customer-address.repository';
-import { CustomerAddressService } from '../../app/customer-address/service/customer-address.service';
-import { CustomerAddressController } from '../../app/customer-address/controller/customer-address.controller';
-import { RestaurantRepository } from '../../app/restaurant/repository/restaurant.repository';
-import { RestaurantService } from '../../app/restaurant/service/restaurant.service';
-import { RestaurantController } from '../../app/restaurant/controller/restaurant.controller';
+import { PasswordResetRepository } from '../../app/auth/repository/password-reset.repository';
+import { AuthService } from '../../app/auth/service/auth.service';
+import { BranchController } from '../../app/branch/controller/branch.controller';
 import { BranchRepository } from '../../app/branch/repository/branch.repository';
 import { BranchService } from '../../app/branch/service/branch.service';
-import { BranchController } from '../../app/branch/controller/branch.controller';
-import { ProductRepository } from '../../app/product/repository/product.repository';
-import { ProductService } from '../../app/product/service/product.service';
+import { CustomerAddressController } from '../../app/customer-address/controller/customer-address.controller';
+import { CustomerAddressRepository } from '../../app/customer-address/repository/customer-address.repository';
+import { CustomerAddressService } from '../../app/customer-address/service/customer-address.service';
 import { ProductController } from '../../app/product/controller/product.controller';
 import { CategoryRepository } from '../../app/product/repository/category.repository';
 import { ProductBranchDetailsRepository } from '../../app/product/repository/product-branch-details.repository';
-import { RoleRepository } from '../../app/rbac/repository/role.repository';
-import { RestaurantMemberRepository } from '../../app/rbac/repository/restaurant_member.repository';
+import { ProductRepository } from '../../app/product/repository/product.repository';
+import { ProductService } from '../../app/product/service/product.service';
+import { MemberController } from '../../app/rbac/controller/member.controller';
 import { MemberBranchRepository } from '../../app/rbac/repository/member-branch.repository';
 import { PermissionRepository } from '../../app/rbac/repository/permission.repository';
+import { RestaurantMemberRepository } from '../../app/rbac/repository/restaurant_member.repository';
+import { RoleRepository } from '../../app/rbac/repository/role.repository';
+import { MemberInternalService } from '../../app/rbac/service/member-internal.service';
 import { MemberService } from '../../app/rbac/service/member.service';
 import { PermissionCacheService } from '../../app/rbac/service/permission-cache.service';
-import { MemberController } from '../../app/rbac/controller/member.controller';
-import { MemberInternalService } from '../../app/rbac/service/member-internal.service';
+import { RestaurantController } from '../../app/restaurant/controller/restaurant.controller';
+import { RestaurantRepository } from '../../app/restaurant/repository/restaurant.repository';
+import { RestaurantService } from '../../app/restaurant/service/restaurant.service';
+import { UserController } from '../../app/user/controller/user.controller';
+import { UserRepository } from '../../app/user/repository/user.repository';
+import { UserService } from '../../app/user/service/user.service';
+import { cacheProvider } from '../cache/init';
+import { emailProvider } from '../email/init';
+import { tokens } from './tokens';
 
 // Repositories
 container.registerSingleton<UserRepository>(tokens.UserRepository, UserRepository);
@@ -64,5 +66,6 @@ container.registerSingleton<ProductController>(tokens.ProductController, Product
 container.registerSingleton<MemberController>(tokens.MemberController, MemberController);
 
 // Infrastructure
-
+container.registerInstance(tokens.CacheProvider, cacheProvider);
+container.registerInstance(tokens.EmailProvider, emailProvider);
 export { container };

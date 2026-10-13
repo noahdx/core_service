@@ -1,7 +1,6 @@
 import { Knex } from 'knex';
 import { inject, injectable } from 'tsyringe';
 import { tokens } from '../../../lib/di/tokens';
-import { emailProvider } from '../../../lib/email/init';
 import { db } from '../../../lib/knex/knex';
 import {
   generateAccessToken,
@@ -11,6 +10,7 @@ import {
   verifyPassword,
   verifyRefreshToken,
 } from '../../../lib/utils/common';
+import { IEmailProvider } from '../../../pkg/email/email.interface';
 import { toMs } from '../../../pkg/utils/time';
 import { MemberInternalService } from '../../rbac/service/member-internal.service';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
@@ -28,6 +28,7 @@ export class AuthService {
     @inject(tokens.PasswordRepository) private readonly passwordResetRepository: PasswordResetRepository,
     @inject(tokens.RestaurantService) private readonly restaurantService: RestaurantService,
     @inject(tokens.MemberInternalService) private readonly memberInternalService: MemberInternalService,
+    @inject(tokens.EmailProvider) private readonly emailProvider: IEmailProvider,
   ) {}
 
   async register(data: RegisterDTO) {
@@ -135,7 +136,7 @@ export class AuthService {
     }
 
     const email = passwordResetEmail(otp);
-    await emailProvider.send(data.email, email.subject, email.html);
+    await this.emailProvider.send(data.email, email.subject, email.html);
 
     return { message: 'Email Sent with OTP' };
   }

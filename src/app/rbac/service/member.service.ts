@@ -1,10 +1,12 @@
 import { inject, injectable } from 'tsyringe';
 import { tokens } from '../../../lib/di/tokens';
-import { RestaurantMemberRepository } from '../repository/restaurant_member.repository';
-import { RoleRepository } from '../repository/role.repository';
-import { MemberBranchRepository } from '../repository/member-branch.repository';
-import { PermissionRepository } from '../repository/permission.repository';
+import { db } from '../../../lib/knex/knex';
+import { IEmailProvider } from '../../../pkg/email/email.interface';
+import { AuthService } from '../../auth/service/auth.service';
+import { UserService } from '../../user/service/user.service';
+import { SystemRole } from '../../user/types';
 import { CreateMemberDTO, UpdateMemberBranchesDTO, UpdateMemberDTO } from '../dto/member-req.dto';
+import { MemberBranchEntity } from '../entity/member-branch.entity';
 import {
   CannotAssignBranchesToOwnerError,
   CannotCreateOwnerUserError,
@@ -14,14 +16,12 @@ import {
   RoleNotFoundError,
   RoleQueryRequiredError,
 } from '../errors';
-import { UserService } from '../../user/service/user.service';
-import { db } from '../../../lib/knex/knex';
-import { SystemRole } from '../../user/types';
-import { MemberStatus } from '../types';
-import { MemberBranchEntity } from '../entity/member-branch.entity';
-import { AuthService } from '../../auth/service/auth.service';
-import { emailProvider } from '../../../lib/email/init';
+import { MemberBranchRepository } from '../repository/member-branch.repository';
+import { PermissionRepository } from '../repository/permission.repository';
+import { RestaurantMemberRepository } from '../repository/restaurant_member.repository';
+import { RoleRepository } from '../repository/role.repository';
 import { memberInvitationEmail } from '../templates/password-reset';
+import { MemberStatus } from '../types';
 
 @injectable()
 export class MemberService {
@@ -32,6 +32,7 @@ export class MemberService {
     @inject(tokens.PermissionRepository) private readonly permissionRepository: PermissionRepository,
     @inject(tokens.MemberBranchRepository) private readonly memberBranchRepository: MemberBranchRepository,
     @inject(tokens.RestaurantMemberRepository) private readonly restaurantMemberRepository: RestaurantMemberRepository,
+    @inject(tokens.EmailProvider) private readonly emailProvider: IEmailProvider,
   ) {}
 
   async listMembers(restaurantId: number) {
@@ -122,7 +123,7 @@ export class MemberService {
       // generate otp, create password reset record and send email
       const otp = (await this.authService.createPasswordReset(user.email, trx)) as string;
       const email = memberInvitationEmail(user.email);
-      await emailProvider.send(user.email, email.subject, email.html);
+      await this.emailProvider.send(user.email, email.subject, email.html);
 
       await trx.commit();
 
