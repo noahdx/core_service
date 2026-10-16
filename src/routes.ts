@@ -10,6 +10,7 @@ import { rbacRouter } from './app/rbac/routes';
 import { orderRouter } from './app/order/routes';
 import { paymentRouter } from './app/payment/routes';
 import { agentRouter } from './app/agent/routes';
+import { financeRouter } from './app/finance/routes';
 
 export const routes = Router();
 routes.use('/health', healthRouter);
@@ -23,3 +24,4 @@ routes.use('/', rbacRouter);
 routes.use('/', orderRouter);
 routes.use('/', paymentRouter);
 routes.use('/', agentRouter);
+routes.use('/', financeRouter);

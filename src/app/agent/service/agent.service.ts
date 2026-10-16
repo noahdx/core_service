@@ -14,11 +14,7 @@ import { AssignmentService } from './assignment.service';
 import { SettlementService } from './settlement.service';
 import { AgentNotAssignedToOrder, InvalidAgentStatusTransition } from '../errors';
 import { PresenceOnlineDTO, PresencePingDTO } from '../dto/agent-request.dto';
-import {
-  AgentEarningsDTO,
-  AgentEarningsSummaryDTO,
-  DeliveryTaskDTO,
-} from '../dto/agent-response.dto';
+import { AgentEarningsDTO, AgentEarningsSummaryDTO, DeliveryTaskDTO } from '../dto/agent-response.dto';
 import { OrderEntity } from '../../order/entity/order.entity';
 
 @injectable()
@@ -75,11 +71,7 @@ export class AgentService {
     };
   };
 
-  transitionStatus = async (
-    orderPublicId: string,
-    agentId: number,
-    newStatus: 'picked' | 'delivered',
-  ) => {
+  transitionStatus = async (orderPublicId: string, agentId: number, newStatus: 'picked' | 'delivered') => {
     const order = await this.orderRepository.findByPublicId(orderPublicId);
     if (!order) {
       throw OrderNotFoundError;
@@ -95,11 +87,7 @@ export class AgentService {
         throw InvalidAgentStatusTransition;
       }
 
-      const updated = await this.orderRepository.updateStatus(
-        orderPublicId,
-        OrderStatus.PICKED,
-        'picked_at',
-      );
+      const updated = await this.orderRepository.updateStatus(orderPublicId, OrderStatus.PICKED, 'picked_at');
       const task = await this.buildTaskDTO(updated);
       return {
         message: 'Order marked as picked up',
@@ -115,12 +103,7 @@ export class AgentService {
       let updatedOrder: OrderEntity;
       const trx = await db.transaction();
       try {
-        updatedOrder = await this.orderRepository.updateStatus(
-          orderPublicId,
-          OrderStatus.DELIVERED,
-          'delivered_at',
-          trx,
-        );
+        updatedOrder = await this.orderRepository.updateStatus(orderPublicId, OrderStatus.DELIVERED, 'delivered_at', trx);
 
         await this.settlementService.settleOrder(updatedOrder, trx);
 
@@ -140,12 +123,7 @@ export class AgentService {
     throw InvalidAgentStatusTransition;
   };
 
-  getTasks = async (
-    agentId: number,
-    pagination: IPaginationParams,
-    filters: IFilterParams[] = [],
-    statuses?: string[],
-  ) => {
+  getTasks = async (agentId: number, pagination: IPaginationParams, filters: IFilterParams[] = [], statuses?: string[]) => {
     const result = await this.orderRepository.findAgentTasks(agentId, pagination, filters, statuses);
     const orderIds = result.data.map((o) => o.id);
     const items = await this.orderItemRepository.findByOrderIds(orderIds);
@@ -187,13 +165,7 @@ export class AgentService {
     };
   };
 
-  getEarnings = async (
-    agentId: number,
-    pagination: IPaginationParams,
-    filters: IFilterParams[] = [],
-    from?: Date,
-    to?: Date,
-  ) => {
+  getEarnings = async (agentId: number, pagination: IPaginationParams, filters: IFilterParams[] = [], from?: Date, to?: Date) => {
     const result = await this.earningRepository.listByAgent(agentId, pagination, filters, from, to);
     const earnings = result.data.map((e) => AgentEarningsDTO.from(e));
 

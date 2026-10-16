@@ -50,11 +50,7 @@ export class PaymentResponseDTO {
   paidAt!: string | null;
   transactions!: TransactionSummaryDTO[];
 
-  static from(
-    session: PaymentSessionEntity,
-    orderPublicId: string,
-    transactions: TransactionEntity[] = [],
-  ): PaymentResponseDTO {
+  static from(session: PaymentSessionEntity, orderPublicId: string, transactions: TransactionEntity[] = []): PaymentResponseDTO {
     const chargeTx = transactions.find(
       (t) => t.transactionType === TransactionType.CHARGE && t.status === TransactionStatus.SUCCEEDED,
     );

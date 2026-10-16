@@ -52,14 +52,10 @@ export class PaymentWebhookEventRepository {
   };
 
   markProcessed = async (providerEventId: string, trx: Knex = db): Promise<void> => {
-    await trx('payment_webhook_events')
-      .where('provider_event_id', providerEventId)
-      .update({ processed_at: new Date() });
+    await trx('payment_webhook_events').where('provider_event_id', providerEventId).update({ processed_at: new Date() });
   };
 
   markError = async (providerEventId: string, error: string, trx: Knex = db): Promise<void> => {
-    await trx('payment_webhook_events')
-      .where('provider_event_id', providerEventId)
-      .update({ process_error: error });
+    await trx('payment_webhook_events').where('provider_event_id', providerEventId).update({ process_error: error });
   };
 }

@@ -39,7 +39,7 @@ import { TransactionRepository } from '../../app/payment/repository/transaction.
 import { KashierWebhookService } from '../../app/payment/service/kashier-webhook.service';
 import { PaymentService } from '../../app/payment/service/payment.service';
 import { KashierClient } from '../../pkg/payments/kashier/kashier.client';
-import { RestaurantBalanceRepository } from '../../app/agent/repository/restaurant-balance.repository';
+import { RestaurantBalanceRepository } from '../../app/finance/repository/restaurant-balance.repository';
 import { AgentEarningRepository } from '../../app/agent/repository/agent-earning.repository';
 import { PresenceService } from '../../app/agent/service/presence.service';
 import { AssignmentService } from '../../app/agent/service/assignment.service';
@@ -47,6 +47,8 @@ import { SettlementService } from '../../app/agent/service/settlement.service';
 import { AgentService } from '../../app/agent/service/agent.service';
 import { AgentController } from '../../app/agent/controller/agent.controller';
 import { AdminAssignmentController } from '../../app/agent/controller/admin-assignment.controller';
+import { FinanceService } from '../../app/finance/service/finance.service';
+import { FinanceController } from '../../app/finance/controller/finance.controller';
 import { cacheProvider } from '../cache/init';
 import { emailProvider } from '../email/init';
 import { tokens } from './tokens';
@@ -89,6 +91,7 @@ container.registerSingleton<PresenceService>(tokens.PresenceService, PresenceSer
 container.registerSingleton<AssignmentService>(tokens.AssignmentService, AssignmentService);
 container.registerSingleton<SettlementService>(tokens.SettlementService, SettlementService);
 container.registerSingleton<AgentService>(tokens.AgentService, AgentService);
+container.registerSingleton<FinanceService>(tokens.FinanceService, FinanceService);
 
 // Controllers
 container.registerSingleton<UserController>(tokens.UserController, UserController);
@@ -103,6 +106,7 @@ container.registerSingleton<PaymentController>(tokens.PaymentController, Payment
 container.registerSingleton<WebhookController>(tokens.WebhookController, WebhookController);
 container.registerSingleton<AgentController>(tokens.AgentController, AgentController);
 container.registerSingleton<AdminAssignmentController>(tokens.AdminAssignmentController, AdminAssignmentController);
+container.registerSingleton<FinanceController>(tokens.FinanceController, FinanceController);
 
 // Infrastructure & Providers
 container.registerSingleton<KashierClient>(tokens.PaymentProvider, KashierClient);

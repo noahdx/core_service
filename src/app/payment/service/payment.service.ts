@@ -10,19 +10,9 @@ import { OrderStatus, PaymentMethod } from '../../order/types';
 import { RestaurantMemberRepository } from '../../rbac/repository/restaurant_member.repository';
 import { UserRepository } from '../../user/repository/user.repository';
 import { InitPaymentDTO, RefundRequestDTO } from '../dto/payment-req.dto';
-import {
-  PaymentInitResponseDTO,
-  PaymentResponseDTO,
-  RefundResponseDTO,
-} from '../dto/payment-res.dto';
+import { PaymentInitResponseDTO, PaymentResponseDTO, RefundResponseDTO } from '../dto/payment-res.dto';
 import { TransactionEntity } from '../entity/transaction.entity';
-import {
-  KASHIER_PROVIDER_ID,
-  PaymentMethodType,
-  PaymentSessionStatus,
-  TransactionStatus,
-  TransactionType,
-} from '../enums';
+import { KASHIER_PROVIDER_ID, PaymentMethodType, PaymentSessionStatus, TransactionStatus, TransactionType } from '../enums';
 import {
   AmountMismatchError,
   InvalidOrderStatusForPaymentError,
@@ -181,12 +171,7 @@ export class PaymentService {
     };
   };
 
-  requestRefund = async (
-    paymentId: number,
-    dto: RefundRequestDTO,
-    userId: number,
-    userRole: string,
-  ) => {
+  requestRefund = async (paymentId: number, dto: RefundRequestDTO, userId: number, userRole: string) => {
     await this.assertRefundPermission(userId, userRole);
 
     const session = await this.paymentSessionRepository.findById(paymentId);

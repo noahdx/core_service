@@ -23,7 +23,11 @@ function camelToSnake(str: string): string {
   return str.replace(/[A-Z]/g, (letter) => `_${letter.toLocaleLowerCase()}`);
 }
 
-export function applyCursorPagination(query: Knex.QueryBuilder, params: IPaginationParams, tablePrefix?: string): Knex.QueryBuilder {
+export function applyCursorPagination(
+  query: Knex.QueryBuilder,
+  params: IPaginationParams,
+  tablePrefix?: string,
+): Knex.QueryBuilder {
   let column = params.orderBy;
   let direction = params.sortBy;
 

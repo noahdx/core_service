@@ -65,12 +65,7 @@ export class PresenceService {
 
     // 3. Clear Redis presence keys
     const metaKey = `presence:meta:${agentId}`;
-    await this.redis
-      .pipeline()
-      .del(metaKey)
-      .zrem('presence:geo', String(agentId))
-      .srem('presence:busy', String(agentId))
-      .exec();
+    await this.redis.pipeline().del(metaKey).zrem('presence:geo', String(agentId)).srem('presence:busy', String(agentId)).exec();
   };
 
   isOnline = async (agentId: number): Promise<boolean> => {
@@ -107,15 +102,10 @@ export class PresenceService {
     limit: number = 5,
   ): Promise<IAgentCandidate[]> => {
     // GEORADIUS presence:geo lng lat radius m WITHDIST ASC
-    const results = (await this.redis.georadius(
-      'presence:geo',
-      lng,
-      lat,
-      radiusMeters,
-      'm',
-      'WITHDIST',
-      'ASC',
-    )) as [string, string][];
+    const results = (await this.redis.georadius('presence:geo', lng, lat, radiusMeters, 'm', 'WITHDIST', 'ASC')) as [
+      string,
+      string,
+    ][];
 
     if (!results || results.length === 0) return [];
 

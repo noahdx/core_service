@@ -3,13 +3,7 @@ import { db } from '../../../lib/knex/knex';
 import { TOKENS } from '../../../lib/di/tokens';
 import { OrderRepository } from '../../order/repository/order.repository';
 import { OrderStatus } from '../../order/types';
-import {
-  KASHIER_PROVIDER_ID,
-  PaymentMethodType,
-  PaymentSessionStatus,
-  TransactionStatus,
-  TransactionType,
-} from '../enums';
+import { KASHIER_PROVIDER_ID, PaymentMethodType, PaymentSessionStatus, TransactionStatus, TransactionType } from '../enums';
 import { InvalidWebhookSignatureError, PaymentSessionNotFoundError } from '../errors';
 import { PaymentSessionRepository } from '../repository/payment-session.repository';
 import { PaymentWebhookEventRepository } from '../repository/payment-webhook-event.repository';
@@ -60,9 +54,7 @@ export class KashierWebhookService {
       ? await this.paymentSessionRepository.findByProviderSessionId(data.kashierOrderId)
       : undefined;
 
-    let order = data.orderReference
-      ? await this.orderRepository.findByPublicId(data.orderReference)
-      : undefined;
+    let order = data.orderReference ? await this.orderRepository.findByPublicId(data.orderReference) : undefined;
 
     if (!session && order) {
       session = await this.paymentSessionRepository.findByOrderId(order.id);
@@ -119,10 +111,7 @@ export class KashierWebhookService {
           }
         } else if (data.status === 'FAILURE') {
           const attempts = (session.failureAttempts || 0) + 1;
-          const newStatus =
-            attempts >= session.maxFailureAttempts
-              ? PaymentSessionStatus.FAILED
-              : PaymentSessionStatus.PENDING;
+          const newStatus = attempts >= session.maxFailureAttempts ? PaymentSessionStatus.FAILED : PaymentSessionStatus.PENDING;
 
           await this.paymentSessionRepository.update(
             session.id,
@@ -168,11 +157,7 @@ export class KashierWebhookService {
             await this.transactionRepository.markRefunded(data.originalTransactionId, trx);
           }
         } else if (data.status === 'FAILURE' && data.transactionId) {
-          await this.transactionRepository.updateByProviderRef(
-            data.transactionId,
-            { status: TransactionStatus.FAILED },
-            trx,
-          );
+          await this.transactionRepository.updateByProviderRef(data.transactionId, { status: TransactionStatus.FAILED }, trx);
         }
       } else if (event === 'void') {
         if (data.status === 'SUCCESS') {
@@ -186,11 +171,7 @@ export class KashierWebhookService {
           );
 
           if (data.transactionId) {
-            await this.transactionRepository.updateByProviderRef(
-              data.transactionId,
-              { status: TransactionStatus.REVERSED },
-              trx,
-            );
+            await this.transactionRepository.updateByProviderRef(data.transactionId, { status: TransactionStatus.REVERSED }, trx);
           }
 
           if (order && order.status !== OrderStatus.CANCELLED) {

@@ -38,10 +38,7 @@ export class AgentEarningRepository {
   };
 
   findByOrder = async (orderId: number, conn: Knex = db): Promise<AgentEarningEntity | undefined> => {
-    const row = await conn('agent_earnings')
-      .where('order_id', orderId)
-      .select(AgentEarningRepository.COLUMNS)
-      .first();
+    const row = await conn('agent_earnings').where('order_id', orderId).select(AgentEarningRepository.COLUMNS).first();
 
     return row ? this.toEntity(row) : undefined;
   };
@@ -80,12 +77,7 @@ export class AgentEarningRepository {
     };
   };
 
-  sumByAgent = async (
-    agentId: number,
-    from?: Date,
-    to?: Date,
-    conn: Knex = db,
-  ): Promise<{ total: number; count: number }> => {
+  sumByAgent = async (agentId: number, from?: Date, to?: Date, conn: Knex = db): Promise<{ total: number; count: number }> => {
     let query = conn('agent_earnings').where('agent_id', agentId);
 
     if (from) {

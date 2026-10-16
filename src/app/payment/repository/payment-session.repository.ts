@@ -62,22 +62,12 @@ export class PaymentSessionRepository {
     return row ? this.toEntity(row) : undefined;
   };
 
-  findByProviderSessionId = async (
-    providerSessionId: string,
-    conn: Knex = db,
-  ): Promise<PaymentSessionEntity | undefined> => {
-    const row = await conn('payment_sessions')
-      .where('provider_session_id', providerSessionId)
-      .select(this.COLUMNS)
-      .first();
+  findByProviderSessionId = async (providerSessionId: string, conn: Knex = db): Promise<PaymentSessionEntity | undefined> => {
+    const row = await conn('payment_sessions').where('provider_session_id', providerSessionId).select(this.COLUMNS).first();
     return row ? this.toEntity(row) : undefined;
   };
 
-  update = async (
-    id: number,
-    data: Partial<PaymentSessionEntity>,
-    trx: Knex = db,
-  ): Promise<PaymentSessionEntity> => {
+  update = async (id: number, data: Partial<PaymentSessionEntity>, trx: Knex = db): Promise<PaymentSessionEntity> => {
     const payload: Record<string, any> = {
       updated_at: new Date(),
     };

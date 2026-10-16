@@ -7,12 +7,7 @@ import { UserRepository } from '../../user/repository/user.repository';
 import { BranchRepository } from '../../branch/repository/branch.repository';
 import { PresenceService } from './presence.service';
 import { SystemRole } from '../../user/types';
-import {
-  AgentNotFoundError,
-  AgentOfflineError,
-  OfferExpiredError,
-  OrderAlreadyClaimedError,
-} from '../errors';
+import { AgentNotFoundError, AgentOfflineError, OfferExpiredError, OrderAlreadyClaimedError } from '../errors';
 import { OrderNotFoundError } from '../../order/errors';
 import { OrderEntity } from '../../order/entity/order.entity';
 

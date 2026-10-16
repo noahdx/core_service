@@ -7,9 +7,7 @@ import { AgentController } from './controller/agent.controller';
 import { AdminAssignmentController } from './controller/admin-assignment.controller';
 
 const agentController = container.resolve<AgentController>(tokens.AgentController);
-const adminAssignmentController = container.resolve<AdminAssignmentController>(
-  tokens.AdminAssignmentController,
-);
+const adminAssignmentController = container.resolve<AdminAssignmentController>(tokens.AdminAssignmentController);
 
 export const agentRouter = Router();
 

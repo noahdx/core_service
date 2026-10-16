@@ -23,14 +23,7 @@ export class PaymentController {
       const userRole = req.user?.role || '';
       const data = await validateBody(InitPaymentDTO, req.body);
 
-      const result = await this.paymentService.initPayment(
-        restaurantId,
-        branchId,
-        orderId,
-        data,
-        userId,
-        userRole,
-      );
+      const result = await this.paymentService.initPayment(restaurantId, branchId, orderId, data, userId, userRole);
       res.status(201).json(result);
     } catch (error) {
       next(error);
@@ -45,13 +38,7 @@ export class PaymentController {
       const userId = Number(req.user?.userId);
       const userRole = req.user?.role || '';
 
-      const result = await this.paymentService.getPaymentByOrder(
-        restaurantId,
-        branchId,
-        orderId,
-        userId,
-        userRole,
-      );
+      const result = await this.paymentService.getPaymentByOrder(restaurantId, branchId, orderId, userId, userRole);
       res.status(200).json(result);
     } catch (error) {
       next(error);

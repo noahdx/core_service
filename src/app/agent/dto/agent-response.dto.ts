@@ -1,7 +1,7 @@
 import { OrderEntity } from '../../order/entity/order.entity';
 import { OrderItemEntity } from '../../order/entity/order-item.entity';
 import { AgentEarningEntity } from '../entity/agent-earning.entity';
-import { RestaurantBalanceEntity } from '../entity/restaurant-balance.entity';
+import { RestaurantBalanceEntity } from '../../finance/entity/restaurant-balance.entity';
 
 export class DeliveryTaskDTO {
   orderId!: string;

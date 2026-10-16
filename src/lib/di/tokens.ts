@@ -37,6 +37,7 @@ export const tokens = {
   AssignmentService: Symbol.for('AssignmentService'),
   SettlementService: Symbol.for('SettlementService'),
   AgentService: Symbol.for('AgentService'),
+  FinanceService: Symbol.for('FinanceService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
@@ -51,6 +52,7 @@ export const tokens = {
   WebhookController: Symbol.for('WebhookController'),
   AgentController: Symbol.for('AgentController'),
   AdminAssignmentController: Symbol.for('AdminAssignmentController'),
+  FinanceController: Symbol.for('FinanceController'),
 
   // Infrastructure
   CacheProvider: Symbol.for('CacheProvider'),

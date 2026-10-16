@@ -1,10 +1,7 @@
 import { AppError } from '../../lib/error/AppError';
 
 export const PaymentSessionNotFoundError = new AppError('Payment session not found', 404);
-export const InvalidOrderStatusForPaymentError = new AppError(
-  'Order must be in pending_payment to initiate payment',
-  400,
-);
+export const InvalidOrderStatusForPaymentError = new AppError('Order must be in pending_payment to initiate payment', 400);
 export const PaymentAlreadyExistsError = new AppError('Payment already initiated for this order', 409);
 export const AmountMismatchError = new AppError('Payment amount does not match order total', 400);
 export const RefundExceedsPaidError = new AppError('Refund amount exceeds paid amount', 400);

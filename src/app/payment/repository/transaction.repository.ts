@@ -1,5 +1,12 @@
 import { Knex } from 'knex';
 import { injectable } from 'tsyringe';
+import {
+  applyCursorPagination,
+  applyFilters,
+  buildPaginationResult,
+  IFilterParams,
+  IPaginationParams,
+} from '../../../lib/http/pagination/cursor-pagination';
 import { db } from '../../../lib/knex/knex';
 import { TransactionEntity } from '../entity/transaction.entity';
 import { TransactionStatus, TransactionType } from '../enums';
@@ -55,30 +62,18 @@ export class TransactionRepository {
   };
 
   findByOrderId = async (orderId: number, conn: Knex = db): Promise<TransactionEntity[]> => {
-    const rows = await conn('transactions')
-      .where('order_id', orderId)
-      .select(this.COLUMNS)
-      .orderBy('created_at', 'asc');
+    const rows = await conn('transactions').where('order_id', orderId).select(this.COLUMNS).orderBy('created_at', 'asc');
     return rows.map(this.toEntity);
   };
 
   findByOrderIds = async (orderIds: number[], conn: Knex = db): Promise<TransactionEntity[]> => {
     if (orderIds.length === 0) return [];
-    const rows = await conn('transactions')
-      .whereIn('order_id', orderIds)
-      .select(this.COLUMNS)
-      .orderBy('created_at', 'asc');
+    const rows = await conn('transactions').whereIn('order_id', orderIds).select(this.COLUMNS).orderBy('created_at', 'asc');
     return rows.map(this.toEntity);
   };
 
-  findByProviderReferenceId = async (
-    providerRef: string,
-    conn: Knex = db,
-  ): Promise<TransactionEntity | undefined> => {
-    const row = await conn('transactions')
-      .where('provider_reference_id', providerRef)
-      .select(this.COLUMNS)
-      .first();
+  findByProviderReferenceId = async (providerRef: string, conn: Knex = db): Promise<TransactionEntity | undefined> => {
+    const row = await conn('transactions').where('provider_reference_id', providerRef).select(this.COLUMNS).first();
     return row ? this.toEntity(row) : undefined;
   };
 
@@ -95,18 +90,13 @@ export class TransactionRepository {
     if (data.isRefunded !== undefined) payload.is_refunded = data.isRefunded;
     if (data.refundedPaymentId !== undefined) payload.refunded_payment_id = data.refundedPaymentId;
 
-    const [row] = await trx('transactions')
-      .where('provider_reference_id', providerRef)
-      .update(payload)
-      .returning(this.COLUMNS);
+    const [row] = await trx('transactions').where('provider_reference_id', providerRef).update(payload).returning(this.COLUMNS);
 
     return row ? this.toEntity(row) : undefined;
   };
 
   markRefunded = async (providerRef: string, trx: Knex = db): Promise<void> => {
-    await trx('transactions')
-      .where('provider_reference_id', providerRef)
-      .update({ is_refunded: true, updated_at: new Date() });
+    await trx('transactions').where('provider_reference_id', providerRef).update({ is_refunded: true, updated_at: new Date() });
   };
 
   sumRefundedByOrderId = async (orderId: number, conn: Knex = db): Promise<number> => {
@@ -119,6 +109,47 @@ export class TransactionRepository {
       .sum('amount as total');
 
     return Number(res[0]?.total || 0);
+  };
+
+  findPayoutsByOwnerId = async (
+    ownerId: number,
+    from?: Date,
+    to?: Date,
+    pagination?: IPaginationParams,
+    extraFilters: IFilterParams[] = [],
+    conn: Knex = db,
+  ): Promise<{ data: TransactionEntity[]; meta: any }> => {
+    let query = conn('transactions')
+      .where({
+        transaction_type: TransactionType.PAYOUT,
+        dst_acc_id: ownerId,
+      })
+      .select(this.COLUMNS);
+
+    if (from) {
+      query = query.where('created_at', '>=', from);
+    }
+    if (to) {
+      query = query.where('created_at', '<=', to);
+    }
+
+    applyFilters(query, extraFilters);
+
+    if (pagination) {
+      applyCursorPagination(query, pagination);
+      const rows = await query;
+      const result = buildPaginationResult(rows, pagination.limit, pagination.sortBy || 'createdAt');
+      return {
+        data: result.data.map(this.toEntity),
+        meta: result.meta,
+      };
+    }
+
+    const rows = await query.orderBy('created_at', 'desc');
+    return {
+      data: rows.map(this.toEntity),
+      meta: { count: rows.length, hasMore: false, nextCursor: null },
+    };
   };
 
   private toEntity = (row: any): TransactionEntity => {

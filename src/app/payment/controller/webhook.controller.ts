@@ -12,9 +12,8 @@ export class WebhookController {
 
   handleKashierWebhook = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const signature = (req.headers['x-kashier-signature'] ||
-        req.headers['x-signature'] ||
-        req.headers['kashier-hash']) as string | undefined;
+      const signature = (req.headers['x-kashier-signature'] || req.headers['x-signature'] || req.headers['kashier-hash']) as
+        string | undefined;
 
       const result = await this.webhookService.handleWebhook(req.body, signature);
       res.status(200).json(result);

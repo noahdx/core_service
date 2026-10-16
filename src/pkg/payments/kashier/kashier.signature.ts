@@ -59,9 +59,10 @@ export class KashierSignature {
    * Helper to generate signature for testing or outbound calls
    */
   static generate(data: Record<string, any>, secret: string): string {
-    const keys = Array.isArray(data.signatureKeys) && data.signatureKeys.length > 0
-      ? [...data.signatureKeys]
-      : Object.keys(data).filter((k) => k !== 'signature' && k !== 'signatureKeys' && k !== 'hash');
+    const keys =
+      Array.isArray(data.signatureKeys) && data.signatureKeys.length > 0
+        ? [...data.signatureKeys]
+        : Object.keys(data).filter((k) => k !== 'signature' && k !== 'signatureKeys' && k !== 'hash');
 
     keys.sort();
 
