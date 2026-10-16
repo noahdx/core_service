@@ -12,6 +12,8 @@ export const tokens = {
   PermissionRepository: Symbol.for('PermissionRepository'),
   RestaurantMemberRepository: Symbol.for('RestaurantMemberRepository'),
   MemberBranchRepository: Symbol.for('MemberBranchRepository'),
+  OrderRepository: Symbol.for('OrderRepository'),
+  OrderItemRepository: Symbol.for('OrderItemRepository'),
 
   // Services
   UserService: Symbol.for('UserService'),
@@ -23,6 +25,7 @@ export const tokens = {
   MemberService: Symbol.for('MemberService'),
   PermissionCacheService: Symbol.for('PermissionCacheService'),
   MemberInternalService: Symbol.for('MemberInternalService'),
+  OrderService: Symbol.for('OrderService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
@@ -32,6 +35,7 @@ export const tokens = {
   BranchController: Symbol.for('BranchController'),
   ProductController: Symbol.for('ProductController'),
   MemberController: Symbol.for('MemberController'),
+  OrderController: Symbol.for('OrderController'),
 
   // Infrastructure
   CacheProvider: Symbol.for('CacheProvider'),

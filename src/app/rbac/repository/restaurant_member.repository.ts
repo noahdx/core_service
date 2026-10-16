@@ -19,9 +19,7 @@ export class RestaurantMemberRepository {
   private COLUMNS = ['id', 'restaurant_id', 'user_id', 'role_id', 'status', 'created_at', 'updated_at'];
 
   async activateMemberByUserId(userId: number, trx: Knex = db): Promise<void> {
-    await trx('restaurant_members')
-      .where('user_id', userId)
-      .update({ status: MemberStatus.ACTIVE, updated_at: new Date() });
+    await trx('restaurant_members').where('user_id', userId).update({ status: MemberStatus.ACTIVE, updated_at: new Date() });
   }
   async findMemberById(memberId: number, conn: Knex = db): Promise<RestaurantMemberEntity | undefined> {
     const row = await conn('restaurant_members').select(this.COLUMNS).where('id', memberId).first();
@@ -44,9 +42,7 @@ export class RestaurantMemberRepository {
   }
 
   // By Member ID
-  async findMemberWithRoleName(
-    memberId: number,
-  ): Promise<{ member: RestaurantMemberEntity; roleName: string } | undefined> {
+  async findMemberWithRoleName(memberId: number): Promise<{ member: RestaurantMemberEntity; roleName: string } | undefined> {
     const row = await db('restaurant_members as rm')
       .select(...this.COLUMNS.map((c) => `rm.${c}`), 'r.name as roleName')
       .join('roles as r', 'rm.role_id', 'r.id')
@@ -98,11 +94,7 @@ export class RestaurantMemberRepository {
     return this.toEntity(row);
   }
 
-  async update(
-    memberId: number,
-    data: { roleId?: number; status?: string; updatedAt: Date },
-    trx: Knex = db,
-  ): Promise<void> {
+  async update(memberId: number, data: { roleId?: number; status?: string; updatedAt: Date }, trx: Knex = db): Promise<void> {
     const mapping: Record<string, any> = {};
     mapping.updated_at = data.updatedAt;
     if (data.roleId !== undefined) mapping.role_id = data.roleId;

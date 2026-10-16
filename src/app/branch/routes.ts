@@ -11,11 +11,7 @@ export const branchRouter = Router();
 const branchController = container.resolve<BranchController>(tokens.BranchController);
 
 branchRouter.get('/branches/nearby', branchController.getNearBranches);
-branchRouter.get(
-  '/restaurants/:restaurantId/branches',
-  cacheLayer({ restaurantScoped: true }),
-  branchController.getByRestaurant,
-);
+branchRouter.get('/restaurants/:restaurantId/branches', cacheLayer({ restaurantScoped: true }), branchController.getByRestaurant);
 
 branchRouter.post('/restaurants/:restaurantId/branches', authenticate, branchController.create);
 branchRouter.patch(

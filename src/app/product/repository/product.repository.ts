@@ -35,16 +35,18 @@ export class ProductRepository {
     'deleted_at',
   ];
 
-  async findById(id: number): Promise<ProductEntity | undefined> {
-    const row = await db('products').select(this.COLUMNS).where('id', id).whereNull('deleted_at').first();
+  async findById(id: number, columns: string[] = this.COLUMNS): Promise<ProductEntity | undefined> {
+    const row = await db('products').select(columns).where('id', id).whereNull('deleted_at').first();
     return row ? this.toEntity(row) : undefined;
   }
 
-  async findByRestaurant(
-    restaurantId: number,
-    params: IPaginationParams,
-    filters: IFilterParams[],
-  ): Promise<ProductEntity[]> {
+  async findByIds(ids: number[], columns: string[] = this.COLUMNS): Promise<ProductEntity[]> {
+    if (ids.length === 0) return [];
+    const rows = await db('products').select(columns).whereIn('id', ids).whereNull('deleted_at');
+    return rows.map((r) => this.toEntity(r));
+  }
+
+  async findByRestaurant(restaurantId: number, params: IPaginationParams, filters: IFilterParams[]): Promise<ProductEntity[]> {
     let query = db('products').select(this.COLUMNS).where('restaurant_id', restaurantId).whereNull('deleted_at');
     applyCursorPagination(query, params);
     applyFilters(query, filters);

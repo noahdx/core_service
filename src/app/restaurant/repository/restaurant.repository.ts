@@ -11,17 +11,7 @@ import { RestaurantEntity } from '../entity/restaurant.entity';
 
 @injectable()
 export class RestaurantRepository {
-  private COLUMNS = [
-    'id',
-    'owner_id',
-    'name',
-    'status',
-    'primary_country',
-    'logo_url',
-    'created_at',
-    'updated_at',
-    'updated_at',
-  ];
+  private COLUMNS = ['id', 'owner_id', 'name', 'status', 'primary_country', 'logo_url', 'created_at', 'updated_at', 'updated_at'];
 
   async findById(id: number) {
     const row = await db('restaurants').where('id', id).select(this.COLUMNS).first();

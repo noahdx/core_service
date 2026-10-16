@@ -2,10 +2,7 @@ import { IFilterParams, IPaginationParams } from './cursor-pagination';
 
 const DEFAULT_SORT_BY = 'createdAt';
 
-export function parsePagination(
-  query: Record<string, any>,
-  allowedSortBy: string[] = ['createdAt'],
-): IPaginationParams {
+export function parsePagination(query: Record<string, any>, allowedSortBy: string[] = ['createdAt']): IPaginationParams {
   const sortBy = allowedSortBy.includes(query.sortBy) ? query.sortBy : DEFAULT_SORT_BY;
 
   return {

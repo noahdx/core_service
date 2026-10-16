@@ -24,18 +24,28 @@ function camelToSnake(str: string): string {
 }
 
 export function applyCursorPagination(query: Knex.QueryBuilder, params: IPaginationParams): Knex.QueryBuilder {
-  if (!params.orderBy) {
-    return query;
+  let column = params.orderBy;
+  let direction = params.sortBy;
+
+  // Handle if column was passed in sortBy and direction in orderBy
+  if (direction !== 'asc' && direction !== 'desc') {
+    const temp = column;
+    column = direction;
+    direction = (temp === 'desc' ? 'desc' : 'asc') as 'asc' | 'desc';
   }
 
-  const dbColumn = camelToSnake(params.orderBy);
+  if (!column) {
+    column = 'createdAt';
+  }
+
+  const dbColumn = camelToSnake(column);
 
   if (params.cursor) {
-    const op = params.sortBy == 'asc' ? '>' : '<';
+    const op = direction === 'asc' ? '>' : '<';
     query = query.where(dbColumn, op, params.cursor);
   }
 
-  return query.orderBy(dbColumn, params.sortBy).limit(params.limit + 1);
+  return query.orderBy(dbColumn, direction || 'asc').limit(params.limit + 1);
 }
 
 export function applyFilters(query: Knex.QueryBuilder, filters: IFilterParams[]): Knex.QueryBuilder {
@@ -69,13 +79,13 @@ export function applyFilters(query: Knex.QueryBuilder, filters: IFilterParams[])
 }
 
 export function buildPaginationResult<T>(rows: T[], limit: number, sortBy: string) {
-  const hasMore = rows.length < limit;
+  const hasMore = rows.length > limit;
   const data = hasMore ? rows.slice(0, limit) : rows;
   let nextCursor = null;
 
   if (data.length > 0) {
     const lastItem = data[data.length - 1] as any;
-    nextCursor = hasMore && lastItem ? lastItem[sortBy] : null;
+    nextCursor = hasMore && lastItem ? String(lastItem[sortBy] ?? lastItem['id'] ?? '') : null;
   }
 
   return {

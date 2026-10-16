@@ -2,11 +2,7 @@ import { Knex } from 'knex';
 import { inject, injectable } from 'tsyringe';
 import { UnAuthorizedError } from '../../../lib/auth/errors';
 import { tokens } from '../../../lib/di/tokens';
-import {
-  buildPaginationResult,
-  IFilterParams,
-  IPaginationParams,
-} from '../../../lib/http/pagination/cursor-pagination';
+import { buildPaginationResult, IFilterParams, IPaginationParams } from '../../../lib/http/pagination/cursor-pagination';
 import { db } from '../../../lib/knex/knex';
 import { UserAlreadyExistsError } from '../../user/errors';
 import { UserService } from '../../user/service/user.service';

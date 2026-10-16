@@ -1,11 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { UnAuthorizedError } from '../../../lib/auth/errors';
 import { tokens } from '../../../lib/di/tokens';
-import {
-  buildPaginationResult,
-  IFilterParams,
-  IPaginationParams,
-} from '../../../lib/http/pagination/cursor-pagination';
+import { buildPaginationResult, IFilterParams, IPaginationParams } from '../../../lib/http/pagination/cursor-pagination';
 import { RestaurantNotFoundError } from '../../restaurant/errors';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { SystemRole } from '../../user/types';
@@ -24,8 +20,8 @@ export class ProductService {
     @inject(tokens.PBDRepository) private readonly pbdRepository: ProductBranchDetailsRepository,
   ) {}
 
-  async findById(id: number) {
-    const product = await this.productRepository.findById(id);
+  async findById(id: number, columns?: string[]) {
+    const product = await this.productRepository.findById(id, columns);
     if (!product) {
       throw ProductNotFoundError;
     }
@@ -33,6 +29,14 @@ export class ProductService {
     return {
       message: 'Product retrieved successfully',
       data: product,
+    };
+  }
+
+  async findByIds(ids: number[], columns?: string[]) {
+    const products = await this.productRepository.findByIds(ids, columns);
+    return {
+      message: 'Products retrieved successfully',
+      data: products,
     };
   }
 

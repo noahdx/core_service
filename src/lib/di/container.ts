@@ -27,6 +27,10 @@ import { RestaurantService } from '../../app/restaurant/service/restaurant.servi
 import { UserController } from '../../app/user/controller/user.controller';
 import { UserRepository } from '../../app/user/repository/user.repository';
 import { UserService } from '../../app/user/service/user.service';
+import { OrderController } from '../../app/order/controller/order.controller';
+import { OrderRepository } from '../../app/order/repository/order.repository';
+import { OrderItemRepository } from '../../app/order/repository/order-item.repository';
+import { OrderService } from '../../app/order/service/order.service';
 import { cacheProvider } from '../cache/init';
 import { emailProvider } from '../email/init';
 import { tokens } from './tokens';
@@ -44,6 +48,8 @@ container.registerSingleton<RoleRepository>(tokens.RoleRepository, RoleRepositor
 container.registerSingleton<PermissionRepository>(tokens.PermissionRepository, PermissionRepository);
 container.registerSingleton<RestaurantMemberRepository>(tokens.RestaurantMemberRepository, RestaurantMemberRepository);
 container.registerSingleton<MemberBranchRepository>(tokens.MemberBranchRepository, MemberBranchRepository);
+container.registerSingleton<OrderRepository>(tokens.OrderRepository, OrderRepository);
+container.registerSingleton<OrderItemRepository>(tokens.OrderItemRepository, OrderItemRepository);
 
 // Services
 container.registerSingleton<UserService>(tokens.UserService, UserService);
@@ -55,6 +61,7 @@ container.registerSingleton<ProductService>(tokens.ProductService, ProductServic
 container.registerSingleton<MemberService>(tokens.MemberService, MemberService);
 container.registerSingleton<PermissionCacheService>(tokens.PermissionCacheService, PermissionCacheService);
 container.registerSingleton<MemberInternalService>(tokens.MemberInternalService, MemberInternalService);
+container.registerSingleton<OrderService>(tokens.OrderService, OrderService);
 
 // Controllers
 container.registerSingleton<UserController>(tokens.UserController, UserController);
@@ -64,6 +71,7 @@ container.registerSingleton<RestaurantController>(tokens.RestaurantController, R
 container.registerSingleton<BranchController>(tokens.BranchController, BranchController);
 container.registerSingleton<ProductController>(tokens.ProductController, ProductController);
 container.registerSingleton<MemberController>(tokens.MemberController, MemberController);
+container.registerSingleton<OrderController>(tokens.OrderController, OrderController);
 
 // Infrastructure
 container.registerInstance(tokens.CacheProvider, cacheProvider);
