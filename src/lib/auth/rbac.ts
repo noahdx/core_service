@@ -4,6 +4,7 @@ import { SystemRole } from '../../app/user/types';
 import { container } from '../di/container';
 import { tokens } from '../di/tokens';
 import { PermissionCacheService } from '../../app/rbac/service/permission-cache.service';
+import { BranchRepository } from '../../app/branch/repository/branch.repository';
 
 export interface RBACOptions {
   resource: string;
@@ -80,15 +81,21 @@ export function requireBranchAccess(paramName: string = 'branchId') {
       return next();
     }
 
-    // owners have access to all branches
-    if (req.user?.restaurantRole == 'owner') {
-      return next();
-    }
-
     if (req.user.role == SystemRole.RESTAURANT_USER) {
       const branchId = parseInt(req.params[paramName] as string) || parseInt(req.query[paramName] as string);
 
-      const userBranchIds = req.user?.branchIds || [];
+      if (req.user?.restaurantRole == 'owner') {
+        const branchRepo = container.resolve<BranchRepository>(tokens.BranchRepository);
+        const branch = await branchRepo.findById(branchId);
+        if (!branch || Number(branch.restaurantId) !== Number(req.user.restaurantId)) {
+          return res.status(403).json({
+            error: 'You do not have access to this branch',
+          });
+        }
+        return next();
+      }
+
+      const userBranchIds = (req.user?.branchIds || []).map((id) => Number(id));
       if (!userBranchIds.includes(branchId)) {
         return res.status(403).json({
           error: 'You do not have access to this branch',

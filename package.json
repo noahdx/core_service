@@ -11,7 +11,8 @@
     "format:check": "prettier --check .",
     "migrate:make": "node --import tsx ./node_modules/knex/bin/cli.js migrate:make --knexfile ./src/lib/knex/knexfile.ts",
     "migrate:latest": "node --import tsx ./node_modules/knex/bin/cli.js migrate:latest --knexfile ./src/lib/knex/knexfile.ts",
-    "migrate:rollback": "node --import tsx ./node_modules/knex/bin/cli.js migrate:rollback --knexfile ./src/lib/knex/knexfile.ts"
+    "migrate:rollback": "node --import tsx ./node_modules/knex/bin/cli.js migrate:rollback --knexfile ./src/lib/knex/knexfile.ts",
+    "test": "jest --runInBand"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

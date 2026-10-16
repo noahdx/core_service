@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 import { db } from '../../../lib/knex/knex';
 import { tokens } from '../../../lib/di/tokens';
 import { UnAuthorizedError } from '../../../lib/auth/errors';
@@ -22,6 +22,7 @@ import { validateTransition } from './order-status.service';
 import {
   AddressDoesNotBelongToUserError,
   BranchNotAcceptingOrdersError,
+  CancelOrderForbiddenError,
   EmptyOrderItemsError,
   OfflineWhilePickedForbiddenError,
   OrderNotFoundError,
@@ -176,9 +177,30 @@ export class OrderService {
       throw error;
     }
 
+    let paymentInfo: { sessionId: string; redirectUrl: string } | undefined = undefined;
+    if (data.paymentMethod === PaymentMethod.ONLINE) {
+      try {
+        const paymentService = container.resolve<any>(tokens.PaymentService);
+        const paymentInit = await paymentService.initPayment(
+          order.restaurantId,
+          order.branchId,
+          order.publicId,
+          {},
+          customerId,
+          'customer',
+        );
+        paymentInfo = {
+          sessionId: paymentInit.data.sessionId,
+          redirectUrl: paymentInit.data.redirectUrl,
+        };
+      } catch {
+        // Fallback: order remains in pending_payment, customer can init payment later
+      }
+    }
+
     return {
       message: 'Order placed successfully',
-      data: OrderResponseDTO.from(order, items),
+      data: OrderResponseDTO.from(order, items, paymentInfo),
     };
   };
 
@@ -204,6 +226,17 @@ export class OrderService {
     }
 
     const actor = await this.resolveStatusActor(order, userId, userRole);
+    if (actor === StatusActor.RESTAURANT_MEMBER && data.status === OrderStatus.CANCELLED) {
+      const memberData = await this.memberRepository.findRestaurantMemberWithRole(userId);
+      if (memberData) {
+        const permissionCacheService = container.resolve<any>(tokens.PermissionCacheService);
+        const permissions = await permissionCacheService.getPermission(memberData.roleName);
+        if (!permissionCacheService.hasPermission(permissions, 'core:order', 'cancel')) {
+          throw CancelOrderForbiddenError;
+        }
+      }
+    }
+
     const { stamp } = validateTransition(order.status, data.status, {
       actor,
       reason: data.reason,

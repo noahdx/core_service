@@ -35,7 +35,7 @@ export class RestaurantService {
 
   async getAll(params: IPaginationParams, filters: IFilterParams[]) {
     const restaurants = await this.restaurantRepository.findAll(params, filters);
-    return buildPaginationResult(restaurants, params.limit, params.orderBy);
+    return buildPaginationResult(restaurants, params.limit, params.sortBy);
   }
 
   async createWithOwner(systemRole: SystemRole, data: RegisterRestaurantDTO) {

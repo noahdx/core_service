@@ -27,6 +27,12 @@ export class UserRepository {
     return row ? this.toEntity(row) : undefined;
   }
 
+  async findByIds(ids: number[]): Promise<UserEntity[]> {
+    if (ids.length === 0) return [];
+    const rows = await db('users').whereIn('id', ids).select(this.USER_COLUMNS);
+    return rows.map((r) => this.toEntity(r));
+  }
+
   async existsByEmail(email: string): Promise<boolean> {
     const result = await db.raw(`SELECT EXISTS (SELECT 1 FROM users WHERE email = ?)`, [email]);
     return result.rows[0].exists;

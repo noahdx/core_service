@@ -2,7 +2,7 @@ import { OrderEntity } from '../entity/order.entity';
 import { OrderItemEntity } from '../entity/order-item.entity';
 
 export class OrderResponseDTO {
-  static from(order: OrderEntity, items: OrderItemEntity[]) {
+  static from(order: OrderEntity, items: OrderItemEntity[], payment?: { sessionId: string; redirectUrl: string }) {
     return {
       id: order.id,
       publicId: order.publicId,
@@ -44,6 +44,7 @@ export class OrderResponseDTO {
         imageUrl: i.imageUrlSnapshot,
         lineTotal: i.lineTotal,
       })),
+      ...(payment ? { payment } : {}),
     };
   }
 }

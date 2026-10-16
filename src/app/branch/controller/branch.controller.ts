@@ -10,6 +10,16 @@ import { SystemRole } from '../../user/types';
 export class BranchController {
   constructor(@inject(tokens.BranchService) private readonly branchService: BranchService) {}
 
+  getById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const branchId = Number(req.params.branchId);
+      const result = await this.branchService.getById(branchId);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   getNearBranches = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const lng = Number(req.query.lng);

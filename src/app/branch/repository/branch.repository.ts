@@ -46,6 +46,12 @@ export class BranchRepository {
     return row ? this.toEntity(row) : undefined;
   }
 
+  async findByIds(ids: number[]): Promise<BranchEntity[]> {
+    if (ids.length === 0) return [];
+    const rows = await db('restaurant_branches').whereIn('id', ids).select(this.COLUMNS);
+    return rows.map(this.toEntity);
+  }
+
   async findByRestaurant(restaurantId: number): Promise<BranchEntity[]> {
     const rows = await db('restaurant_branches').where('restaurant_id', restaurantId).select(this.COLUMNS);
     return rows.map(this.toEntity);

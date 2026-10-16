@@ -14,6 +14,11 @@ export const tokens = {
   MemberBranchRepository: Symbol.for('MemberBranchRepository'),
   OrderRepository: Symbol.for('OrderRepository'),
   OrderItemRepository: Symbol.for('OrderItemRepository'),
+  PaymentSessionRepository: Symbol.for('PaymentSessionRepository'),
+  TransactionRepository: Symbol.for('TransactionRepository'),
+  PaymentWebhookEventRepository: Symbol.for('PaymentWebhookEventRepository'),
+  RestaurantBalanceRepository: Symbol.for('RestaurantBalanceRepository'),
+  AgentEarningRepository: Symbol.for('AgentEarningRepository'),
 
   // Services
   UserService: Symbol.for('UserService'),
@@ -26,6 +31,12 @@ export const tokens = {
   PermissionCacheService: Symbol.for('PermissionCacheService'),
   MemberInternalService: Symbol.for('MemberInternalService'),
   OrderService: Symbol.for('OrderService'),
+  PaymentService: Symbol.for('PaymentService'),
+  KashierWebhookService: Symbol.for('KashierWebhookService'),
+  PresenceService: Symbol.for('PresenceService'),
+  AssignmentService: Symbol.for('AssignmentService'),
+  SettlementService: Symbol.for('SettlementService'),
+  AgentService: Symbol.for('AgentService'),
 
   // Controllers
   UserController: Symbol.for('UserController'),
@@ -36,8 +47,15 @@ export const tokens = {
   ProductController: Symbol.for('ProductController'),
   MemberController: Symbol.for('MemberController'),
   OrderController: Symbol.for('OrderController'),
+  PaymentController: Symbol.for('PaymentController'),
+  WebhookController: Symbol.for('WebhookController'),
+  AgentController: Symbol.for('AgentController'),
+  AdminAssignmentController: Symbol.for('AdminAssignmentController'),
 
   // Infrastructure
   CacheProvider: Symbol.for('CacheProvider'),
   EmailProvider: Symbol.for('EmailProvider'),
+  PaymentProvider: Symbol.for('PaymentProvider'),
 };
+
+export const TOKENS = tokens;

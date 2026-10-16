@@ -61,11 +61,7 @@ export class ProductService {
 
   async findByBranch(branchId: number, params: IPaginationParams, filters: IFilterParams[]) {
     const products = await this.productRepository.findByBranch(branchId, params, filters);
-    return buildPaginationResult(products, params.limit, params.orderBy);
-    return {
-      message: 'Products retrieved successfully',
-      data: products,
-    };
+    return buildPaginationResult(products, params.limit, params.sortBy);
   }
 
   async findCategories(restaurantId: number) {

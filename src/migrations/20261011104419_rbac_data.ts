@@ -29,7 +29,13 @@ export async function up(knex: Knex): Promise<void> {
         ('core:branch', 'update', NOW()),
 
         -- Restaurant settings permissions
-        ('core:restaurant', 'update', NOW())
+        ('core:restaurant', 'update', NOW()),
+
+        -- Order permissions
+        ('core:order', 'create', NOW()),
+        ('core:order', 'read', NOW()),
+        ('core:order', 'update', NOW()),
+        ('core:order', 'cancel', NOW())
 
         ON CONFLICT (resource, action) DO NOTHING;
     `);
@@ -42,7 +48,7 @@ export async function up(knex: Knex): Promise<void> {
         ON CONFLICT DO NOTHING;
     `);
 
-  // Branch Manager permissions - product CRUD, member read, branch update
+  // Branch Manager permissions - product CRUD, member read, branch update, order management
   await knex.raw(`
         INSERT INTO role_permissions (role_id, permission_id, created_at)
         SELECT r.id, p.id, NOW() FROM roles r, permissions p
@@ -52,19 +58,25 @@ export async function up(knex: Knex): Promise<void> {
             'core:product:read',
             'core:product:update',
             'core:member:read',
-            'core:branch:update'
+            'core:branch:update',
+            'core:order:create',
+            'core:order:read',
+            'core:order:update',
+            'core:order:cancel'
         )
         ON CONFLICT DO NOTHING;
     `);
 
-  // Staff permissions - read only
+  // Staff permissions - read only + daily order fulfillment
   await knex.raw(`
         INSERT INTO role_permissions (role_id, permission_id, created_at)
         SELECT r.id, p.id, NOW() FROM roles r, permissions p
         WHERE r.name = 'staff'
         AND p.resource || ':' || p.action IN (
             'core:product:read',
-            'core:member:read'
+            'core:member:read',
+            'core:order:read',
+            'core:order:update'
         )
         ON CONFLICT DO NOTHING;
     `);

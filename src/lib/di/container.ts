@@ -31,6 +31,22 @@ import { OrderController } from '../../app/order/controller/order.controller';
 import { OrderRepository } from '../../app/order/repository/order.repository';
 import { OrderItemRepository } from '../../app/order/repository/order-item.repository';
 import { OrderService } from '../../app/order/service/order.service';
+import { PaymentController } from '../../app/payment/controller/payment.controller';
+import { WebhookController } from '../../app/payment/controller/webhook.controller';
+import { PaymentSessionRepository } from '../../app/payment/repository/payment-session.repository';
+import { PaymentWebhookEventRepository } from '../../app/payment/repository/payment-webhook-event.repository';
+import { TransactionRepository } from '../../app/payment/repository/transaction.repository';
+import { KashierWebhookService } from '../../app/payment/service/kashier-webhook.service';
+import { PaymentService } from '../../app/payment/service/payment.service';
+import { KashierClient } from '../../pkg/payments/kashier/kashier.client';
+import { RestaurantBalanceRepository } from '../../app/agent/repository/restaurant-balance.repository';
+import { AgentEarningRepository } from '../../app/agent/repository/agent-earning.repository';
+import { PresenceService } from '../../app/agent/service/presence.service';
+import { AssignmentService } from '../../app/agent/service/assignment.service';
+import { SettlementService } from '../../app/agent/service/settlement.service';
+import { AgentService } from '../../app/agent/service/agent.service';
+import { AgentController } from '../../app/agent/controller/agent.controller';
+import { AdminAssignmentController } from '../../app/agent/controller/admin-assignment.controller';
 import { cacheProvider } from '../cache/init';
 import { emailProvider } from '../email/init';
 import { tokens } from './tokens';
@@ -50,6 +66,11 @@ container.registerSingleton<RestaurantMemberRepository>(tokens.RestaurantMemberR
 container.registerSingleton<MemberBranchRepository>(tokens.MemberBranchRepository, MemberBranchRepository);
 container.registerSingleton<OrderRepository>(tokens.OrderRepository, OrderRepository);
 container.registerSingleton<OrderItemRepository>(tokens.OrderItemRepository, OrderItemRepository);
+container.registerSingleton<PaymentSessionRepository>(tokens.PaymentSessionRepository, PaymentSessionRepository);
+container.registerSingleton<TransactionRepository>(tokens.TransactionRepository, TransactionRepository);
+container.registerSingleton<PaymentWebhookEventRepository>(tokens.PaymentWebhookEventRepository, PaymentWebhookEventRepository);
+container.registerSingleton<RestaurantBalanceRepository>(tokens.RestaurantBalanceRepository, RestaurantBalanceRepository);
+container.registerSingleton<AgentEarningRepository>(tokens.AgentEarningRepository, AgentEarningRepository);
 
 // Services
 container.registerSingleton<UserService>(tokens.UserService, UserService);
@@ -62,6 +83,12 @@ container.registerSingleton<MemberService>(tokens.MemberService, MemberService);
 container.registerSingleton<PermissionCacheService>(tokens.PermissionCacheService, PermissionCacheService);
 container.registerSingleton<MemberInternalService>(tokens.MemberInternalService, MemberInternalService);
 container.registerSingleton<OrderService>(tokens.OrderService, OrderService);
+container.registerSingleton<PaymentService>(tokens.PaymentService, PaymentService);
+container.registerSingleton<KashierWebhookService>(tokens.KashierWebhookService, KashierWebhookService);
+container.registerSingleton<PresenceService>(tokens.PresenceService, PresenceService);
+container.registerSingleton<AssignmentService>(tokens.AssignmentService, AssignmentService);
+container.registerSingleton<SettlementService>(tokens.SettlementService, SettlementService);
+container.registerSingleton<AgentService>(tokens.AgentService, AgentService);
 
 // Controllers
 container.registerSingleton<UserController>(tokens.UserController, UserController);
@@ -72,8 +99,14 @@ container.registerSingleton<BranchController>(tokens.BranchController, BranchCon
 container.registerSingleton<ProductController>(tokens.ProductController, ProductController);
 container.registerSingleton<MemberController>(tokens.MemberController, MemberController);
 container.registerSingleton<OrderController>(tokens.OrderController, OrderController);
+container.registerSingleton<PaymentController>(tokens.PaymentController, PaymentController);
+container.registerSingleton<WebhookController>(tokens.WebhookController, WebhookController);
+container.registerSingleton<AgentController>(tokens.AgentController, AgentController);
+container.registerSingleton<AdminAssignmentController>(tokens.AdminAssignmentController, AdminAssignmentController);
 
-// Infrastructure
+// Infrastructure & Providers
+container.registerSingleton<KashierClient>(tokens.PaymentProvider, KashierClient);
 container.registerInstance(tokens.CacheProvider, cacheProvider);
 container.registerInstance(tokens.EmailProvider, emailProvider);
+
 export { container };

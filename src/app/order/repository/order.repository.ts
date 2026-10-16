@@ -92,6 +92,12 @@ export class OrderRepository {
     return row ? this.toEntity(row) : undefined;
   }
 
+  async findByIds(ids: number[], conn: Knex = db): Promise<OrderEntity[]> {
+    if (ids.length === 0) return [];
+    const rows = await conn('orders').whereIn('id', ids).select(this.COLUMNS);
+    return rows.map((r) => this.toEntity(r));
+  }
+
   async findByPublicId(publicId: string, conn: Knex = db): Promise<OrderEntity | undefined> {
     const row = await conn('orders').where('public_id', publicId).select(this.COLUMNS).first();
     return row ? this.toEntity(row) : undefined;
@@ -125,6 +131,20 @@ export class OrderRepository {
     const [row] = await conn('orders')
       .where({ public_id: publicId, status: OrderStatus.READY })
       .whereNull('agent_id')
+      .update({
+        agent_id: agentId,
+        status: OrderStatus.ASSIGNED,
+        assigned_at: new Date(),
+        updated_at: new Date(),
+      })
+      .returning(this.COLUMNS);
+
+    return row ? this.toEntity(row) : undefined;
+  }
+
+  async assignOrderToAgent(publicId: string, agentId: number, conn: Knex = db): Promise<OrderEntity | undefined> {
+    const [row] = await conn('orders')
+      .where({ public_id: publicId })
       .update({
         agent_id: agentId,
         status: OrderStatus.ASSIGNED,

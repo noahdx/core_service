@@ -9,6 +9,7 @@ export const restaurantRouter = Router();
 
 const restaurantController = container.resolve<RestaurantController>(tokens.RestaurantController);
 
+restaurantRouter.get('/', restaurantController.getAll);
 restaurantRouter.get('/:restaurantId', restaurantController.getById);
 restaurantRouter.post('/', authenticate, restaurantController.create); // system_admin only, checked in service
 restaurantRouter.patch(

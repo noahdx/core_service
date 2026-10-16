@@ -8,8 +8,11 @@ yarn-error.log*
 /.pnp
 .pnp.js
 .vscode/*
-.idea/*
+
 .env
 .prettierrc
 AGENTS.md
+/dist
 /tests
+/.idea
+TODO

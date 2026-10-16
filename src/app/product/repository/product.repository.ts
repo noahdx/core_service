@@ -74,8 +74,8 @@ export class ProductRepository {
         'pbd.is_available',
       );
 
-    applyCursorPagination(query, params);
-    applyFilters(query, filters);
+    applyCursorPagination(query, params, 'p');
+    applyFilters(query, filters, 'p');
     const rows = await query;
 
     return rows.map((row: any) => ({

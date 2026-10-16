@@ -12,3 +12,4 @@ export const AddressDoesNotBelongToUserError = new AppError('Address does not be
 export const RestaurantDoesNotMatchError = new AppError('Order does not belong to this restaurant', 403);
 export const EmptyOrderItemsError = new AppError('Order must contain at least one item', 400);
 export const OfflineWhilePickedForbiddenError = new AppError('Cannot go offline while holding picked orders in transit', 409);
+export const CancelOrderForbiddenError = new AppError('You do not have permission to cancel orders', 403);

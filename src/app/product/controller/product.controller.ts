@@ -29,7 +29,7 @@ export class ProductController {
       const params = parsePagination(req.query, ['id', 'name', 'createdAt']);
       const filters = parseFilters(req.query, ['name', 'createdAt', 'categoryId']);
       const results = await this.productService.findByBranch(branchId, params, filters);
-      sendPaginated(res, results.data);
+      sendPaginated(res, results.data, results.meta);
     } catch (error) {
       next(error);
     }

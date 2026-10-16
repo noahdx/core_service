@@ -20,10 +20,10 @@ export interface IPaginationMeta {
 }
 
 function camelToSnake(str: string): string {
-  return str.replace(/[A-Z]/, (letter) => `_${letter.toLocaleLowerCase()}`);
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLocaleLowerCase()}`);
 }
 
-export function applyCursorPagination(query: Knex.QueryBuilder, params: IPaginationParams): Knex.QueryBuilder {
+export function applyCursorPagination(query: Knex.QueryBuilder, params: IPaginationParams, tablePrefix?: string): Knex.QueryBuilder {
   let column = params.orderBy;
   let direction = params.sortBy;
 
@@ -39,38 +39,41 @@ export function applyCursorPagination(query: Knex.QueryBuilder, params: IPaginat
   }
 
   const dbColumn = camelToSnake(column);
+  const fullColumn = tablePrefix && !dbColumn.includes('.') ? `${tablePrefix}.${dbColumn}` : dbColumn;
 
   if (params.cursor) {
     const op = direction === 'asc' ? '>' : '<';
-    query = query.where(dbColumn, op, params.cursor);
+    query = query.where(fullColumn, op, params.cursor);
   }
 
-  return query.orderBy(dbColumn, direction || 'asc').limit(params.limit + 1);
+  return query.orderBy(fullColumn, direction || 'asc').limit(params.limit + 1);
 }
 
-export function applyFilters(query: Knex.QueryBuilder, filters: IFilterParams[]): Knex.QueryBuilder {
+export function applyFilters(query: Knex.QueryBuilder, filters: IFilterParams[], tablePrefix?: string): Knex.QueryBuilder {
   for (const filter of filters) {
+    const dbColumn = camelToSnake(filter.field);
+    const fullField = tablePrefix && !dbColumn.includes('.') ? `${tablePrefix}.${dbColumn}` : dbColumn;
     switch (filter.operator) {
       case 'eq':
-        query.where(filter.field, filter.value);
+        query.where(fullField, filter.value);
         break;
       case 'gt':
-        query.where(filter.field, '>', filter.value);
+        query.where(fullField, '>', filter.value);
         break;
       case 'lt':
-        query.where(filter.field, '<', filter.value);
+        query.where(fullField, '<', filter.value);
         break;
       case 'lte':
-        query.where(filter.field, '<=', filter.value);
+        query.where(fullField, '<=', filter.value);
         break;
       case 'gte':
-        query.where(filter.field, '>=', filter.value);
+        query.where(fullField, '>=', filter.value);
         break;
       case 'like':
-        query.whereLike(filter.field, `%${filter.value}%`);
-        break; // LIKE bdu -> abdullah
+        query.whereLike(fullField, `%${filter.value}%`);
+        break;
       case 'in':
-        query.whereIn(filter.field, Array.isArray(filter.value) ? filter.value : [filter.value]);
+        query.whereIn(fullField, Array.isArray(filter.value) ? filter.value : [filter.value]);
         break;
     }
   }
