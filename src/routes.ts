@@ -8,6 +8,8 @@ import { branchRouter } from './app/branch/routes';
 import { productRouter } from './app/product/routes';
 import { rbacRouter } from './app/rbac/routes';
 import { orderRouter } from './app/order/routes';
+import { paymentRouter } from './app/payment/routes';
+import { agentRouter } from './app/agent/routes';
 
 export const routes = Router();
 routes.use('/health', healthRouter);
@@ -19,3 +21,5 @@ routes.use('/', branchRouter);
 routes.use('/', productRouter);
 routes.use('/', rbacRouter);
 routes.use('/', orderRouter);
+routes.use('/', paymentRouter);
+routes.use('/', agentRouter);
