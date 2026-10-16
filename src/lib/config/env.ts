@@ -12,6 +12,7 @@ config({ path: path.resolve(__dirname, '../../../.env') });
 const schema = z.object({
   PORT: z.string().default('3000'),
   NODE_ENV: z.string().default('development'),
+  CORS_ORIGINS: z.string().default('http://localhost:3000'),
 
   DB_HOST: z.string().default('localhost'),
   DB_PORT: z.string().default('5432'),
@@ -52,6 +53,7 @@ const parsed = schema.parse(process.env);
 export const env = {
   port: parsed.PORT,
   isProduction: parsed.NODE_ENV === 'production',
+  corsOrigins: parsed.CORS_ORIGINS,
   db: {
     host: parsed.DB_HOST,
     port: Number(parsed.DB_PORT),

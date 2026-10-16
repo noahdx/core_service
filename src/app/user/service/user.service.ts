@@ -6,6 +6,7 @@ import { UserAlreadyExistsError, UserNotFoundError } from '../errors';
 import { hashPassword } from '../../../lib/utils/common';
 import { ICreateUserData } from '../types';
 import { UpdateUserDTO } from '../dto/user-req.dto';
+import { UserProfileResponseDTO } from '../dto/user-res.dto';
 
 @injectable()
 export class UserService {
@@ -31,12 +32,7 @@ export class UserService {
 
     return {
       message: 'User retrieved successfully',
-      data: {
-        id: user.id,
-        email: user.email,
-        phone: user.phone,
-        systemRole: user.systemRole,
-      },
+      data: UserProfileResponseDTO.from(user),
     };
   }
 
@@ -72,10 +68,8 @@ export class UserService {
     const updated = await this.userRepository.update(id, data);
 
     return {
-      id: updated.id,
-      email: updated.email,
-      phone: updated.phone,
-      systemRole: updated.systemRole,
+      message: 'User updated successfully',
+      data: UserProfileResponseDTO.from(updated),
     };
   }
 

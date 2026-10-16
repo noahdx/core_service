@@ -20,9 +20,13 @@ export class UserController {
   };
 
   updateProfile = async (req: Request, res: Response, next: NextFunction) => {
-    const id = Number(req.params.id);
-    const data = await validateBody(UpdateUserDTO, req.body);
-    const result = await this.userService.update(id, data);
-    res.status(200).json(result);
+    try {
+      const id = Number(req.params.id);
+      const data = await validateBody(UpdateUserDTO, req.body);
+      const result = await this.userService.update(id, data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
   };
 }

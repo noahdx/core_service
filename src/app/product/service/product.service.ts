@@ -6,6 +6,7 @@ import { RestaurantNotFoundError } from '../../restaurant/errors';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { SystemRole } from '../../user/types';
 import { CreateProductDTO, UpdateProductDTO } from '../dto/product-req.dto';
+import { CategoryResponseDTO, ProductResponseDTO } from '../dto/product-res.dto';
 import { ProductNotFoundError } from '../errors';
 import { CategoryRepository } from '../repository/category.repository';
 import { ProductBranchDetailsRepository } from '../repository/product-branch-details.repository';
@@ -28,7 +29,7 @@ export class ProductService {
 
     return {
       message: 'Product retrieved successfully',
-      data: product,
+      data: ProductResponseDTO.from(product),
     };
   }
 
@@ -36,7 +37,7 @@ export class ProductService {
     const products = await this.productRepository.findByIds(ids, columns);
     return {
       message: 'Products retrieved successfully',
-      data: products,
+      data: products.map((p) => ProductResponseDTO.from(p)),
     };
   }
 
@@ -56,7 +57,8 @@ export class ProductService {
       throw UnAuthorizedError;
     }
     const products = await this.productRepository.findByRestaurant(restaurantId, params, filters);
-    return buildPaginationResult(products, params.limit, params.sortBy);
+    const mapped = products.map((p) => ProductResponseDTO.from(p));
+    return buildPaginationResult(mapped, params.limit, params.sortBy);
   }
 
   async findByBranch(branchId: number, params: IPaginationParams, filters: IFilterParams[]) {
@@ -69,7 +71,7 @@ export class ProductService {
 
     return {
       message: 'Categories retrieved successfully',
-      data: categories,
+      data: categories.map(CategoryResponseDTO.from),
     };
   }
 
@@ -91,7 +93,7 @@ export class ProductService {
 
     return {
       message: 'Product created successfully',
-      data: product,
+      data: ProductResponseDTO.from(product),
     };
   }
 
@@ -125,7 +127,7 @@ export class ProductService {
     return {
       message: 'Product updated successfully',
       data: {
-        ...updated,
+        ...ProductResponseDTO.from(updated),
         ...branchDetails,
       },
     };

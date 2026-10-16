@@ -17,6 +17,7 @@ import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { UserService } from '../../user/service/user.service';
 import { SystemRole } from '../../user/types';
 import { ForgetPasswordDTO, LoginDTO, RegisterDTO, ResetPasswordDTO } from '../dto/auth-req.dto';
+import { AuthResponseDTO, TokenResponseDTO } from '../dto/auth-res.dto';
 import { IncorrectCredentialsError, InvalidOTPError, RestaurantDataRequiredError } from '../errors';
 import { PasswordResetRepository } from '../repository/password-reset.repository';
 import { passwordResetEmail } from '../templates/password-reset';
@@ -77,15 +78,19 @@ export class AuthService {
 
     return {
       message: 'User registered successfully',
-      accessToken,
-      refreshToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        phone: user.phone,
-        role: user.systemRole,
-        createdAt: user.createdAt,
-      },
+      ...AuthResponseDTO.from({
+        accessToken,
+        refreshToken,
+        user: {
+          id: user.id,
+          email: user.email,
+          phone: user.phone,
+          name: user.name,
+          role: user.systemRole,
+          systemRole: user.systemRole,
+          ...restaurantMemberInfo,
+        },
+      }),
       restaurant,
     };
   }
@@ -116,17 +121,21 @@ export class AuthService {
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
-    return {
+    return AuthResponseDTO.from({
       user: {
         id: user.id,
         email: user.email,
         phone: user.phone,
         name: user.name,
+        role: user.systemRole,
         systemRole: user.systemRole,
+        restaurantId: restaurantMemberInfo?.restaurantId,
+        restaurantRole: restaurantMemberInfo?.restaurantRole,
+        branchIds: restaurantMemberInfo?.branchIds,
       },
       accessToken,
       refreshToken,
-    };
+    });
   }
 
   async forgetPassword(data: ForgetPasswordDTO) {
@@ -164,7 +173,7 @@ export class AuthService {
     return { message: 'Password reset successfully', userId: user.id };
   }
 
-  async refresh(refreshToken: string) {
+  async refresh(refreshToken: string): Promise<TokenResponseDTO> {
     if (!refreshToken) {
       throw IncorrectCredentialsError;
     }

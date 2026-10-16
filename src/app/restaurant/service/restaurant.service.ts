@@ -16,6 +16,7 @@ import {
 import { RestaurantNotFoundError } from '../errors';
 import { RestaurantRepository } from '../repository/restaurant.repository';
 import { RestaurantStatus } from '../types';
+import { RestaurantResponseDTO } from '../dto/restaurant-res.dto';
 
 @injectable()
 export class RestaurantService {
@@ -30,12 +31,13 @@ export class RestaurantService {
       throw RestaurantNotFoundError;
     }
 
-    return { data: restaurant };
+    return { data: RestaurantResponseDTO.from(restaurant) };
   }
 
   async getAll(params: IPaginationParams, filters: IFilterParams[]) {
     const restaurants = await this.restaurantRepository.findAll(params, filters);
-    return buildPaginationResult(restaurants, params.limit, params.sortBy);
+    const mapped = restaurants.map(RestaurantResponseDTO.from);
+    return buildPaginationResult(mapped, params.limit, params.sortBy);
   }
 
   async createWithOwner(systemRole: SystemRole, data: RegisterRestaurantDTO) {
@@ -75,7 +77,7 @@ export class RestaurantService {
       await trx.commit();
 
       return {
-        restaurant,
+        restaurant: RestaurantResponseDTO.from(restaurant),
         owner: {
           id: user.id,
           email: user.email,
@@ -118,7 +120,7 @@ export class RestaurantService {
 
     const updated = await this.restaurantRepository.update(id, data);
 
-    return { data: updated };
+    return { data: RestaurantResponseDTO.from(updated) };
   }
 
   async updateStatus(systemRole: SystemRole, id: number, data: UpdateRestaurantStatusDTO) {
@@ -133,6 +135,6 @@ export class RestaurantService {
 
     const updated = await this.restaurantRepository.updateStatus(id, data.status);
 
-    return { data: updated };
+    return { data: RestaurantResponseDTO.from(updated) };
   }
 }

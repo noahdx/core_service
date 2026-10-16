@@ -5,6 +5,7 @@ import { BranchNotFoundError } from '../errors';
 import { RestaurantService } from '../../restaurant/service/restaurant.service';
 import { RestaurantNotFoundError } from '../../restaurant/errors';
 import { CreateBranchDTO, UpdateBranchDTO, UpdateBranchStatusDTO } from '../dto/branch-req.dto';
+import { BranchResponseDTO, NearBranchResponseDTO } from '../dto/branch-res.dto';
 import { SystemRole } from '../../user/types';
 import { UnAuthorizedError } from '../../../lib/auth/errors';
 
@@ -24,7 +25,7 @@ export class BranchService {
 
     return {
       message: 'Branch retrieved successfully.',
-      data: branch,
+      data: BranchResponseDTO.from(branch),
     };
   }
 
@@ -64,7 +65,7 @@ export class BranchService {
 
     return {
       message: 'Branches retrieved successfully.',
-      data: branches,
+      data: branches.map(BranchResponseDTO.from),
     };
   }
 
@@ -73,7 +74,7 @@ export class BranchService {
 
     return {
       message: 'Branches retrieved successfully.',
-      data: branches,
+      data: branches.map(NearBranchResponseDTO.from),
     };
   }
 
@@ -106,7 +107,7 @@ export class BranchService {
 
     return {
       message: 'Branch created successfully',
-      data: branch,
+      data: BranchResponseDTO.from(branch),
     };
   }
 
@@ -126,7 +127,7 @@ export class BranchService {
 
     return {
       message: 'Branch updated successfully',
-      data: updated,
+      data: BranchResponseDTO.from(updated),
     };
   }
 
@@ -144,7 +145,7 @@ export class BranchService {
 
     return {
       message: 'Branch updated successfully',
-      data: updated,
+      data: BranchResponseDTO.from(updated),
     };
   }
 }

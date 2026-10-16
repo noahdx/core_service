@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { tokens } from '../../../lib/di/tokens';
 import { CustomerAddressRepository } from '../repository/customer-address.repository';
 import { CreateAddressDTO, UpdateAddressDTO } from '../dto/customer-address-req.dto';
+import { CustomerAddressResponseDTO } from '../dto/customer-address-res.dto';
 import { UserService } from '../../user/service/user.service';
 import { AddressNotFoundError } from '../errors';
 
@@ -20,7 +21,7 @@ export class CustomerAddressService {
     }
     return {
       message: 'Address retrieved successfully',
-      data: address,
+      data: CustomerAddressResponseDTO.from(address),
     };
   }
 
@@ -28,7 +29,7 @@ export class CustomerAddressService {
     const addresses = await this.customerAddressRepository.findAllByUserId(userId);
     return {
       message: 'Addresses retrieved successfully',
-      data: addresses,
+      data: addresses.map(CustomerAddressResponseDTO.from),
     };
   }
 
@@ -56,7 +57,7 @@ export class CustomerAddressService {
 
     return {
       message: 'Address created successfully',
-      data: address,
+      data: CustomerAddressResponseDTO.from(address),
     };
   }
 
@@ -70,7 +71,7 @@ export class CustomerAddressService {
 
     return {
       message: 'Address updated successfully',
-      data: updated,
+      data: CustomerAddressResponseDTO.from(updated),
     };
   }
 

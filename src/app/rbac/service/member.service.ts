@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/service/auth.service';
 import { UserService } from '../../user/service/user.service';
 import { SystemRole } from '../../user/types';
 import { CreateMemberDTO, UpdateMemberBranchesDTO, UpdateMemberDTO } from '../dto/member-req.dto';
+import { RestaurantMemberItemResponseDTO, RestaurantMemberResponseDTO } from '../dto/member-res.dto';
 import { MemberBranchEntity } from '../entity/member-branch.entity';
 import {
   CannotAssignBranchesToOwnerError,
@@ -39,7 +40,7 @@ export class MemberService {
     const members = await this.restaurantMemberRepository.findMembersByRestaurantId(restaurantId);
     return {
       message: 'Members retrieved successfully',
-      data: members,
+      data: members.map(RestaurantMemberItemResponseDTO.from),
     };
   }
 
@@ -129,16 +130,16 @@ export class MemberService {
 
       return {
         message: 'Member invited successfully',
-        data: {
-          id: member.id,
-          userId: user.id,
-          email: data.email,
-          name: data.name,
-          phone: data.phone,
-          role: data.role,
-          status: MemberStatus.INACTIVE,
+        data: RestaurantMemberResponseDTO.from(member, {
+          roleName: data.role,
           branchIds,
-        },
+          user: {
+            id: user.id,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+          },
+        }),
       };
     } catch (error) {
       await trx.rollback();
