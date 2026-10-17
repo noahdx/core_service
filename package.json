@@ -13,9 +13,11 @@
     "migrate:make": "node --import tsx ./node_modules/knex/bin/cli.js migrate:make --knexfile ./src/lib/knex/knexfile.ts",
     "migrate:latest": "node --import tsx ./node_modules/knex/bin/cli.js migrate:latest --knexfile ./src/lib/knex/knexfile.ts",
     "migrate:rollback": "node --import tsx ./node_modules/knex/bin/cli.js migrate:rollback --knexfile ./src/lib/knex/knexfile.ts",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "benchmark": "tsx scripts/benchmark.ts"
   },
   "devDependencies": {
+    "@types/autocannon": "^7.12.7",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
@@ -25,6 +27,7 @@
     "@types/node": "^26.6.4",
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.2.1",
+    "autocannon": "^8.0.0",
     "jest": "^30.5.2",
     "prettier": "^3.9.9",
     "supertest": "^7.3.1",
