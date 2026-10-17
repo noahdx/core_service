@@ -16,3 +16,4 @@ AGENTS.md
 /tests
 /.idea
 TODO
+jest.config.js

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { authenticate } from '../../lib/auth/authenticate';
-import { tokens } from '../../lib/di/tokens';
-import { container } from '../../lib/di/container';
-import { RestaurantController } from './controller/restaurant.controller';
 import { rbac, requireRestaurantMember } from '../../lib/auth/rbac';
+import { container } from '../../lib/di/container';
+import { tokens } from '../../lib/di/tokens';
+import { RestaurantController } from './controller/restaurant.controller';
 
 export const restaurantRouter = Router();
 

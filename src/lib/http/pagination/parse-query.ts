@@ -8,7 +8,7 @@ export function parsePagination(query: Record<string, any>, allowedSortBy: strin
 
   return {
     cursor: query.cursor,
-    limit: Number.isNaN(Number(query.limit)) ? 200 : Math.min(200, Number(query.limit)),
+    limit: Number.isNaN(Number(query.limit)) ? 20 : Math.min(20, Number(query.limit)),
     sortBy,
     orderBy: query.sortBy === 'desc' ? 'desc' : 'asc',
   };
